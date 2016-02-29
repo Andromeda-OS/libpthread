@@ -14,6 +14,7 @@
 				1F466B421C83E0800045A073 /* Install Headers */,
 				1F466B491C83E0C80045A073 /* Install Private Headers */,
 				1F466B411C83E06F0045A073 /* Install Headers in /usr/include/sys */,
+				1F466B521C83E1870045A073 /* Symlink Old Header Location */,
 			);
 			dependencies = (
 			);
@@ -588,9 +589,7 @@
 				1F466B211C83D9E50045A073 /* Frameworks */,
 				1F466B221C83D9E50045A073 /* Headers */,
 				1F466B231C83D9E50045A073 /* Resources */,
-				1F466B371C83DE990045A073 /* Symlink Old Header Location */,
 				1F466B381C83DEB10045A073 /* Install Manpages */,
-				1F466B391C83DEC40045A073 /* Install /usr/include/sys headers */,
 				1F466B3A1C83DEE70045A073 /* Install Trace Codes File */,
 			);
 			buildRules = (
@@ -726,21 +725,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1F466B371C83DE990045A073 /* Symlink Old Header Location */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Symlink Old Header Location";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = ". \"${SRCROOT}/xcodescripts/install-symlinks.sh\"";
-			showEnvVarsInLog = 0;
-		};
 		1F466B381C83DEB10045A073 /* Install Manpages */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 8;
@@ -754,21 +738,6 @@
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = ". \"${SRCROOT}/xcodescripts/install-manpages.sh\"";
-			showEnvVarsInLog = 0;
-		};
-		1F466B391C83DEC40045A073 /* Install /usr/include/sys headers */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Install /usr/include/sys headers";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = ". \"${SRCROOT}/xcodescripts/install-sys-headers.sh\"";
 			showEnvVarsInLog = 0;
 		};
 		1F466B3A1C83DEE70045A073 /* Install Trace Codes File */ = {
@@ -801,6 +770,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = ". \"${SRCROOT}/xcodescripts/install-sys-headers.sh\"";
+			showEnvVarsInLog = 0;
+		};
+		1F466B521C83E1870045A073 /* Symlink Old Header Location */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Symlink Old Header Location";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ". \"${SRCROOT}/xcodescripts/install-symlinks.sh\"";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

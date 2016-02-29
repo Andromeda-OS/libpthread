@@ -36,5 +36,5 @@ ln -sf "pthread/posix_sched.h" "${ANDROMEDA_SDK_ROOT}/usr/local/include/posix_sc
 ln -sf "pthread/spinlock_private.h" "${ANDROMEDA_SDK_ROOT}/usr/local/include/pthread_spinlock.h"
 ln -sf "pthread/workqueue_private.h" "${ANDROMEDA_SDK_ROOT}/usr/local/include/pthread_workqueue.h"
 mkdir -p "${ANDROMEDA_SDK_ROOT}/System/Library/Frameworks/System.framework/Versions/B/PrivateHeaders/"
-ln -sf "../../../../../../../usr/local/include/pthread/tsd_private.h" \
+ln -sf "pthread/tsd_private.h" \
 	"${ANDROMEDA_SDK_ROOT}/System/Library/Frameworks/System.framework/Versions/B/PrivateHeaders/pthread_machdep.h"
