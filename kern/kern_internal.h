@@ -30,6 +30,7 @@
 #define _SYS_PTHREAD_INTERNAL_H_
 
 #ifdef KERNEL
+#define NEEDS_SCHED_CALL_T
 #include <kern/thread_call.h>
 #include <sys/pthread_shims.h>
 #include <sys/queue.h>

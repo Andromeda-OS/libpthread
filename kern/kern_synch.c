@@ -30,6 +30,7 @@
  *	pthread_support.c
  */
 
+#define NEEDS_SCHED_CALL_T
 #include <sys/param.h>
 #include <sys/queue.h>
 #include <sys/resourcevar.h>

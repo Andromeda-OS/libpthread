@@ -38,6 +38,7 @@
 #define _PTHREAD_MUTEX_T
 #define _PTHREAD_RWLOCKATTR_T
 #define _PTHREAD_RWLOCK_T
+#define NEEDS_SCHED_CALL_T
 
 #undef pthread_mutexattr_t
 #undef pthread_mutex_t
@@ -345,17 +346,17 @@ _bsdthread_create(struct proc *p, user_addr_t user_func, user_addr_t user_funcar
 	 */
 	if (isLP64 == 0) {
 		x86_thread_state32_t state = {
-			.eip = (unsigned int)pthread_kern->proc_get_threadstart(p),
-			.eax = (unsigned int)th_pthread,
-			.ebx = (unsigned int)th_thport,
-			.ecx = (unsigned int)user_func,
-			.edx = (unsigned int)user_funcarg,
-			.edi = (unsigned int)user_stack,
-			.esi = (unsigned int)flags,
+			.__eip = (unsigned int)pthread_kern->proc_get_threadstart(p),
+			.__eax = (unsigned int)th_pthread,
+			.__ebx = (unsigned int)th_thport,
+			.__ecx = (unsigned int)user_func,
+			.__edx = (unsigned int)user_funcarg,
+			.__edi = (unsigned int)user_stack,
+			.__esi = (unsigned int)flags,
 			/*
 			 * set stack pointer
 			 */
-			.esp = (int)((vm_offset_t)(th_stack-C_32_STK_ALIGN))
+			.__esp = (int)((vm_offset_t)(th_stack-C_32_STK_ALIGN))
 		};
 
 		error = pthread_kern->thread_set_wq_state32(th, (thread_state_t)&state);
@@ -365,17 +366,17 @@ _bsdthread_create(struct proc *p, user_addr_t user_func, user_addr_t user_funcar
 		}
 	} else {
 		x86_thread_state64_t state64 = {
-			.rip = (uint64_t)pthread_kern->proc_get_threadstart(p),
-			.rdi = (uint64_t)th_pthread,
-			.rsi = (uint64_t)(th_thport),
-			.rdx = (uint64_t)user_func,
-			.rcx = (uint64_t)user_funcarg,
-			.r8 = (uint64_t)user_stack,
-			.r9 = (uint64_t)flags,
+			.__rip = (uint64_t)pthread_kern->proc_get_threadstart(p),
+			.__rdi = (uint64_t)th_pthread,
+			.__rsi = (uint64_t)(th_thport),
+			.__rdx = (uint64_t)user_func,
+			.__rcx = (uint64_t)user_funcarg,
+			.__r8 = (uint64_t)user_stack,
+			.__r9 = (uint64_t)flags,
 			/*
 			 * set stack pointer aligned to 16 byte boundary
 			 */
-			.rsp = (uint64_t)(th_stack - C_64_REDZONE_LEN)
+			.__rsp = (uint64_t)(th_stack - C_64_REDZONE_LEN)
 		};
 
 		error = pthread_kern->thread_set_wq_state64(th, (thread_state_t)&state64);
@@ -2950,30 +2951,30 @@ _setup_wqthread(proc_t p, thread_t th, pthread_priority_t priority, int flags, s
 
 	if (isLP64 == 0) {
 		x86_thread_state32_t state = {
-			.eip = (unsigned int)pthread_kern->proc_get_wqthread(p),
-			.eax = /* arg0 */ (unsigned int)pthread_self_addr,
-			.ebx = /* arg1 */ (unsigned int)tl->th_thport,
-			.ecx = /* arg2 */ (unsigned int)stack_bottom_addr,
-			.edx = /* arg3 */ (unsigned int)kevent_list,
-			.edi = /* arg4 */ (unsigned int)flags,
-			.esi = /* arg5 */ (unsigned int)kevent_count,
+			.__eip = (unsigned int)pthread_kern->proc_get_wqthread(p),
+			.__eax = /* arg0 */ (unsigned int)pthread_self_addr,
+			.__ebx = /* arg1 */ (unsigned int)tl->th_thport,
+			.__ecx = /* arg2 */ (unsigned int)stack_bottom_addr,
+			.__edx = /* arg3 */ (unsigned int)kevent_list,
+			.__edi = /* arg4 */ (unsigned int)flags,
+			.__esi = /* arg5 */ (unsigned int)kevent_count,
 
-			.esp = (int)((vm_offset_t)stack_top_addr),
+			.__esp = (int)((vm_offset_t)stack_top_addr),
 		};
 
 		(void)pthread_kern->thread_set_wq_state32(th, (thread_state_t)&state);
 	} else {
 		x86_thread_state64_t state64 = {
 			// x86-64 already passes all the arguments in registers, so we just put them in their final place here
-			.rip = (uint64_t)pthread_kern->proc_get_wqthread(p),
-			.rdi = (uint64_t)pthread_self_addr,
-			.rsi = (uint64_t)tl->th_thport,
-			.rdx = (uint64_t)stack_bottom_addr,
-			.rcx = (uint64_t)kevent_list,
-			.r8  = (uint64_t)flags,
-			.r9  = (uint64_t)kevent_count,
+			.__rip = (uint64_t)pthread_kern->proc_get_wqthread(p),
+			.__rdi = (uint64_t)pthread_self_addr,
+			.__rsi = (uint64_t)tl->th_thport,
+			.__rdx = (uint64_t)stack_bottom_addr,
+			.__rcx = (uint64_t)kevent_list,
+			.__r8  = (uint64_t)flags,
+			.__r9  = (uint64_t)kevent_count,
 
-			.rsp = (uint64_t)(stack_top_addr)
+			.__rsp = (uint64_t)(stack_top_addr)
 		};
 
 		error = pthread_kern->thread_set_wq_state64(th, (thread_state_t)&state64);
