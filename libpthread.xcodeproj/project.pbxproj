@@ -75,12 +75,145 @@
 /* Begin PBXFileReference section */
 		1F466A621C83D9240045A073 /* Kernel.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Kernel.xcodeproj; path = ../Kernel/Kernel.xcodeproj; sourceTree = "<group>"; };
 		1F466A721C83D92A0045A073 /* PlatformKEXTs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PlatformKEXTs.xcodeproj; path = ../PlatformKEXTs/PlatformKEXTs.xcodeproj; sourceTree = "<group>"; };
+		1F466A891C83D99E0045A073 /* APPLE_LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = APPLE_LICENSE; sourceTree = "<group>"; };
+		1F466A8B1C83D99E0045A073 /* kern_init.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = kern_init.c; sourceTree = "<group>"; };
+		1F466A8C1C83D99E0045A073 /* kern_internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kern_internal.h; sourceTree = "<group>"; };
+		1F466A8D1C83D99E0045A073 /* kern_policy.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = kern_policy.c; sourceTree = "<group>"; };
+		1F466A8E1C83D99E0045A073 /* kern_support.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = kern_support.c; sourceTree = "<group>"; };
+		1F466A8F1C83D99E0045A073 /* kern_synch.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = kern_synch.c; sourceTree = "<group>"; };
+		1F466A901C83D99E0045A073 /* kern_trace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kern_trace.h; sourceTree = "<group>"; };
+		1F466A911C83D99E0045A073 /* pthread-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "pthread-Info.plist"; sourceTree = "<group>"; };
+		1F466A921C83D99E0045A073 /* synch_internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = synch_internal.h; sourceTree = "<group>"; };
+		1F466A931C83D99E0045A073 /* workqueue_internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = workqueue_internal.h; sourceTree = "<group>"; };
+		1F466A951C83D99E0045A073 /* pthread.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = pthread.py; sourceTree = "<group>"; };
+		1F466A971C83D99E0045A073 /* pthread.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread.3; sourceTree = "<group>"; };
+		1F466A981C83D99E0045A073 /* pthread_atfork.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_atfork.3; sourceTree = "<group>"; };
+		1F466A991C83D99E0045A073 /* pthread_attr.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_attr.3; sourceTree = "<group>"; };
+		1F466A9A1C83D99E0045A073 /* pthread_attr_init_destroy.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_attr_init_destroy.3; sourceTree = "<group>"; };
+		1F466A9B1C83D99E0045A073 /* pthread_attr_set_getdetachstate.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_attr_set_getdetachstate.3; sourceTree = "<group>"; };
+		1F466A9C1C83D99E0045A073 /* pthread_attr_set_getinheritsched.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_attr_set_getinheritsched.3; sourceTree = "<group>"; };
+		1F466A9D1C83D99E0045A073 /* pthread_attr_set_getschedparam.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_attr_set_getschedparam.3; sourceTree = "<group>"; };
+		1F466A9E1C83D99E0045A073 /* pthread_attr_set_getschedpolicy.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_attr_set_getschedpolicy.3; sourceTree = "<group>"; };
+		1F466A9F1C83D99E0045A073 /* pthread_attr_set_getscope.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_attr_set_getscope.3; sourceTree = "<group>"; };
+		1F466AA01C83D99E0045A073 /* pthread_attr_set_getstackaddr.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_attr_set_getstackaddr.3; sourceTree = "<group>"; };
+		1F466AA11C83D99E0045A073 /* pthread_attr_set_getstacksize.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_attr_set_getstacksize.3; sourceTree = "<group>"; };
+		1F466AA21C83D99E0045A073 /* pthread_cancel.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_cancel.3; sourceTree = "<group>"; };
+		1F466AA31C83D99E0045A073 /* pthread_cleanup_pop.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_cleanup_pop.3; sourceTree = "<group>"; };
+		1F466AA41C83D99E0045A073 /* pthread_cleanup_push.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_cleanup_push.3; sourceTree = "<group>"; };
+		1F466AA51C83D99E0045A073 /* pthread_cond_broadcast.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_cond_broadcast.3; sourceTree = "<group>"; };
+		1F466AA61C83D99E0045A073 /* pthread_cond_destroy.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_cond_destroy.3; sourceTree = "<group>"; };
+		1F466AA71C83D99E0045A073 /* pthread_cond_init.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_cond_init.3; sourceTree = "<group>"; };
+		1F466AA81C83D99E0045A073 /* pthread_cond_signal.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_cond_signal.3; sourceTree = "<group>"; };
+		1F466AA91C83D99E0045A073 /* pthread_cond_timedwait.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_cond_timedwait.3; sourceTree = "<group>"; };
+		1F466AAA1C83D99E0045A073 /* pthread_cond_wait.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_cond_wait.3; sourceTree = "<group>"; };
+		1F466AAB1C83D99E0045A073 /* pthread_condattr.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_condattr.3; sourceTree = "<group>"; };
+		1F466AAC1C83D99E0045A073 /* pthread_create.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_create.3; sourceTree = "<group>"; };
+		1F466AAD1C83D99E0045A073 /* pthread_detach.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_detach.3; sourceTree = "<group>"; };
+		1F466AAE1C83D99E0045A073 /* pthread_equal.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_equal.3; sourceTree = "<group>"; };
+		1F466AAF1C83D99E0045A073 /* pthread_exit.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_exit.3; sourceTree = "<group>"; };
+		1F466AB01C83D99E0045A073 /* pthread_getschedparam.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_getschedparam.3; sourceTree = "<group>"; };
+		1F466AB11C83D99E0045A073 /* pthread_getspecific.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_getspecific.3; sourceTree = "<group>"; };
+		1F466AB21C83D99E0045A073 /* pthread_join.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_join.3; sourceTree = "<group>"; };
+		1F466AB31C83D99E0045A073 /* pthread_key_create.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_key_create.3; sourceTree = "<group>"; };
+		1F466AB41C83D99E0045A073 /* pthread_key_delete.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_key_delete.3; sourceTree = "<group>"; };
+		1F466AB51C83D99E0045A073 /* pthread_kill.2 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_kill.2; sourceTree = "<group>"; };
+		1F466AB61C83D99E0045A073 /* pthread_main_np.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_main_np.3; sourceTree = "<group>"; };
+		1F466AB71C83D99E0045A073 /* pthread_mutex_destroy.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_mutex_destroy.3; sourceTree = "<group>"; };
+		1F466AB81C83D99E0045A073 /* pthread_mutex_init.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_mutex_init.3; sourceTree = "<group>"; };
+		1F466AB91C83D99E0045A073 /* pthread_mutex_lock.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_mutex_lock.3; sourceTree = "<group>"; };
+		1F466ABA1C83D99E0045A073 /* pthread_mutex_trylock.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_mutex_trylock.3; sourceTree = "<group>"; };
+		1F466ABB1C83D99E0045A073 /* pthread_mutex_unlock.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_mutex_unlock.3; sourceTree = "<group>"; };
+		1F466ABC1C83D99E0045A073 /* pthread_mutexattr.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_mutexattr.3; sourceTree = "<group>"; };
+		1F466ABD1C83D99E0045A073 /* pthread_once.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_once.3; sourceTree = "<group>"; };
+		1F466ABE1C83D99E0045A073 /* pthread_rwlock_destroy.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_rwlock_destroy.3; sourceTree = "<group>"; };
+		1F466ABF1C83D99E0045A073 /* pthread_rwlock_init.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_rwlock_init.3; sourceTree = "<group>"; };
+		1F466AC01C83D99E0045A073 /* pthread_rwlock_rdlock.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_rwlock_rdlock.3; sourceTree = "<group>"; };
+		1F466AC11C83D99E0045A073 /* pthread_rwlock_unlock.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_rwlock_unlock.3; sourceTree = "<group>"; };
+		1F466AC21C83D99E0045A073 /* pthread_rwlock_wrlock.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_rwlock_wrlock.3; sourceTree = "<group>"; };
+		1F466AC31C83D99E0045A073 /* pthread_rwlockattr_destroy.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_rwlockattr_destroy.3; sourceTree = "<group>"; };
+		1F466AC41C83D99E0045A073 /* pthread_rwlockattr_getpshared.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_rwlockattr_getpshared.3; sourceTree = "<group>"; };
+		1F466AC51C83D99E0045A073 /* pthread_rwlockattr_init.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_rwlockattr_init.3; sourceTree = "<group>"; };
+		1F466AC61C83D99E0045A073 /* pthread_rwlockattr_setpshared.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_rwlockattr_setpshared.3; sourceTree = "<group>"; };
+		1F466AC71C83D99E0045A073 /* pthread_self.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_self.3; sourceTree = "<group>"; };
+		1F466AC81C83D99E0045A073 /* pthread_setcancelstate.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_setcancelstate.3; sourceTree = "<group>"; };
+		1F466AC91C83D99E0045A073 /* pthread_setspecific.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_setspecific.3; sourceTree = "<group>"; };
+		1F466ACA1C83D99E0045A073 /* pthread_sigmask.2 */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread_sigmask.2; sourceTree = "<group>"; };
+		1F466ACC1C83D99E0045A073 /* atomic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = atomic.h; sourceTree = "<group>"; };
+		1F466ACD1C83D99E0045A073 /* atomic_llsc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = atomic_llsc.h; sourceTree = "<group>"; };
+		1F466ACF1C83D99E0045A073 /* introspection_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = introspection_private.h; sourceTree = "<group>"; };
+		1F466AD01C83D99E0045A073 /* posix_sched.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = posix_sched.h; sourceTree = "<group>"; };
+		1F466AD11C83D99E0045A073 /* private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = private.h; sourceTree = "<group>"; };
+		1F466AD21C83D99E0045A073 /* qos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = qos.h; sourceTree = "<group>"; };
+		1F466AD31C83D99E0045A073 /* qos_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = qos_private.h; sourceTree = "<group>"; };
+		1F466AD41C83D99E0045A073 /* spinlock_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spinlock_private.h; sourceTree = "<group>"; };
+		1F466AD51C83D99E0045A073 /* tsd_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tsd_private.h; sourceTree = "<group>"; };
+		1F466AD61C83D99E0045A073 /* workqueue_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = workqueue_private.h; sourceTree = "<group>"; };
+		1F466AD81C83D99E0045A073 /* pthread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pthread.h; sourceTree = "<group>"; };
+		1F466AD91C83D99E0045A073 /* pthread_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pthread_impl.h; sourceTree = "<group>"; };
+		1F466ADA1C83D99E0045A073 /* pthread_spis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pthread_spis.h; sourceTree = "<group>"; };
+		1F466ADB1C83D99E0045A073 /* qos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = qos.h; sourceTree = "<group>"; };
+		1F466ADC1C83D99E0045A073 /* sched.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sched.h; sourceTree = "<group>"; };
+		1F466ADD1C83D99E0045A073 /* spawn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spawn.h; sourceTree = "<group>"; };
+		1F466ADF1C83D99E0045A073 /* internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = internal.h; sourceTree = "<group>"; };
+		1F466AE01C83D99E0045A073 /* mk_pthread_impl.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = mk_pthread_impl.c; sourceTree = "<group>"; };
+		1F466AE11C83D99E0045A073 /* plockstat.d */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.dtrace; path = plockstat.d; sourceTree = "<group>"; };
+		1F466AE21C83D99E0045A073 /* pthread.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pthread.c; sourceTree = "<group>"; };
+		1F466AE31C83D99E0045A073 /* pthread_asm.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = pthread_asm.s; sourceTree = "<group>"; };
+		1F466AE41C83D99E0045A073 /* pthread_atfork.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pthread_atfork.c; sourceTree = "<group>"; };
+		1F466AE51C83D99E0045A073 /* pthread_cancelable.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pthread_cancelable.c; sourceTree = "<group>"; };
+		1F466AE61C83D99E0045A073 /* pthread_cond.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pthread_cond.c; sourceTree = "<group>"; };
+		1F466AE71C83D99E0045A073 /* pthread_mutex.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pthread_mutex.c; sourceTree = "<group>"; };
+		1F466AE81C83D99E0045A073 /* pthread_mutex_up.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pthread_mutex_up.c; sourceTree = "<group>"; };
+		1F466AE91C83D99E0045A073 /* pthread_rwlock.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pthread_rwlock.c; sourceTree = "<group>"; };
+		1F466AEA1C83D99E0045A073 /* pthread_support.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pthread_support.c; sourceTree = "<group>"; };
+		1F466AEB1C83D99E0045A073 /* pthread_tsd.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pthread_tsd.c; sourceTree = "<group>"; };
+		1F466AEC1C83D99E0045A073 /* qos.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = qos.c; sourceTree = "<group>"; };
+		1F466AED1C83D99E0045A073 /* resolver.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = resolver.c; sourceTree = "<group>"; };
+		1F466AEE1C83D99E0045A073 /* resolver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resolver.h; sourceTree = "<group>"; };
+		1F466AEF1C83D99E0045A073 /* resolver_internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resolver_internal.h; sourceTree = "<group>"; };
+		1F466AF01C83D99E0045A073 /* thread_setup.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = thread_setup.c; sourceTree = "<group>"; };
+		1F466AF21C83D99E0045A073 /* pthread_cancelable_cancel.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pthread_cancelable_cancel.c; sourceTree = "<group>"; };
+		1F466AF31C83D99E0045A073 /* pthread_cancelable_legacy.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pthread_cancelable_legacy.c; sourceTree = "<group>"; };
+		1F466AF41C83D99E0045A073 /* pthread_cond_legacy.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pthread_cond_legacy.c; sourceTree = "<group>"; };
+		1F466AF51C83D99E0045A073 /* pthread_mutex_legacy.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pthread_mutex_legacy.c; sourceTree = "<group>"; };
+		1F466AF61C83D99E0045A073 /* pthread_rwlock_legacy.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pthread_rwlock_legacy.c; sourceTree = "<group>"; };
+		1F466AF91C83D99E0045A073 /* _pthread_attr_t.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _pthread_attr_t.h; sourceTree = "<group>"; };
+		1F466AFA1C83D99E0045A073 /* _pthread_cond_t.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _pthread_cond_t.h; sourceTree = "<group>"; };
+		1F466AFB1C83D99E0045A073 /* _pthread_condattr_t.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _pthread_condattr_t.h; sourceTree = "<group>"; };
+		1F466AFC1C83D99E0045A073 /* _pthread_key_t.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _pthread_key_t.h; sourceTree = "<group>"; };
+		1F466AFD1C83D99E0045A073 /* _pthread_mutex_t.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _pthread_mutex_t.h; sourceTree = "<group>"; };
+		1F466AFE1C83D99E0045A073 /* _pthread_mutexattr_t.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _pthread_mutexattr_t.h; sourceTree = "<group>"; };
+		1F466AFF1C83D99E0045A073 /* _pthread_once_t.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _pthread_once_t.h; sourceTree = "<group>"; };
+		1F466B001C83D99E0045A073 /* _pthread_rwlock_t.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _pthread_rwlock_t.h; sourceTree = "<group>"; };
+		1F466B011C83D99E0045A073 /* _pthread_rwlockattr_t.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _pthread_rwlockattr_t.h; sourceTree = "<group>"; };
+		1F466B021C83D99E0045A073 /* _pthread_t.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _pthread_t.h; sourceTree = "<group>"; };
+		1F466B031C83D99E0045A073 /* _pthread_types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _pthread_types.h; sourceTree = "<group>"; };
+		1F466B041C83D99E0045A073 /* qos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = qos.h; sourceTree = "<group>"; };
+		1F466B051C83D99E0045A073 /* qos_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = qos_private.h; sourceTree = "<group>"; };
+		1F466B071C83D99E0045A073 /* wqtrace.lua */ = {isa = PBXFileReference; lastKnownFileType = text; path = wqtrace.lua; sourceTree = "<group>"; };
+		1F466B0A1C83D99E0045A073 /* install-codes.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "install-codes.sh"; sourceTree = "<group>"; };
+		1F466B0B1C83D99E0045A073 /* install-lldbmacros.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "install-lldbmacros.sh"; sourceTree = "<group>"; };
+		1F466B0C1C83D99E0045A073 /* install-manpages.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "install-manpages.sh"; sourceTree = "<group>"; };
+		1F466B0D1C83D99E0045A073 /* install-symlinks.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "install-symlinks.sh"; sourceTree = "<group>"; };
+		1F466B0E1C83D99E0045A073 /* install-sys-headers.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "install-sys-headers.sh"; sourceTree = "<group>"; };
+		1F466B111C83D99E0045A073 /* pthread.aliases */ = {isa = PBXFileReference; lastKnownFileType = text; path = pthread.aliases; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		1F466A5A1C83D8270045A073 = {
 			isa = PBXGroup;
 			children = (
+				1F466A891C83D99E0045A073 /* APPLE_LICENSE */,
+				1F466A8A1C83D99E0045A073 /* kern */,
+				1F466A941C83D99E0045A073 /* lldbmacros */,
+				1F466A961C83D99E0045A073 /* man */,
+				1F466ACB1C83D99E0045A073 /* os */,
+				1F466ACE1C83D99E0045A073 /* private */,
+				1F466AD71C83D99E0045A073 /* pthread */,
+				1F466ADE1C83D99E0045A073 /* src */,
+				1F466AF71C83D99E0045A073 /* sys */,
+				1F466B061C83D99E0045A073 /* tools */,
+				1F466B081C83D99E0045A073 /* xcodescripts */,
 				1F466A611C83D9180045A073 /* References */,
 			);
 			sourceTree = "<group>";
@@ -115,6 +248,213 @@
 				1F466A841C83D92A0045A073 /* libkmodc++.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		1F466A8A1C83D99E0045A073 /* kern */ = {
+			isa = PBXGroup;
+			children = (
+				1F466A8B1C83D99E0045A073 /* kern_init.c */,
+				1F466A8C1C83D99E0045A073 /* kern_internal.h */,
+				1F466A8D1C83D99E0045A073 /* kern_policy.c */,
+				1F466A8E1C83D99E0045A073 /* kern_support.c */,
+				1F466A8F1C83D99E0045A073 /* kern_synch.c */,
+				1F466A901C83D99E0045A073 /* kern_trace.h */,
+				1F466A911C83D99E0045A073 /* pthread-Info.plist */,
+				1F466A921C83D99E0045A073 /* synch_internal.h */,
+				1F466A931C83D99E0045A073 /* workqueue_internal.h */,
+			);
+			path = kern;
+			sourceTree = "<group>";
+		};
+		1F466A941C83D99E0045A073 /* lldbmacros */ = {
+			isa = PBXGroup;
+			children = (
+				1F466A951C83D99E0045A073 /* pthread.py */,
+			);
+			path = lldbmacros;
+			sourceTree = "<group>";
+		};
+		1F466A961C83D99E0045A073 /* man */ = {
+			isa = PBXGroup;
+			children = (
+				1F466A971C83D99E0045A073 /* pthread.3 */,
+				1F466A981C83D99E0045A073 /* pthread_atfork.3 */,
+				1F466A991C83D99E0045A073 /* pthread_attr.3 */,
+				1F466A9A1C83D99E0045A073 /* pthread_attr_init_destroy.3 */,
+				1F466A9B1C83D99E0045A073 /* pthread_attr_set_getdetachstate.3 */,
+				1F466A9C1C83D99E0045A073 /* pthread_attr_set_getinheritsched.3 */,
+				1F466A9D1C83D99E0045A073 /* pthread_attr_set_getschedparam.3 */,
+				1F466A9E1C83D99E0045A073 /* pthread_attr_set_getschedpolicy.3 */,
+				1F466A9F1C83D99E0045A073 /* pthread_attr_set_getscope.3 */,
+				1F466AA01C83D99E0045A073 /* pthread_attr_set_getstackaddr.3 */,
+				1F466AA11C83D99E0045A073 /* pthread_attr_set_getstacksize.3 */,
+				1F466AA21C83D99E0045A073 /* pthread_cancel.3 */,
+				1F466AA31C83D99E0045A073 /* pthread_cleanup_pop.3 */,
+				1F466AA41C83D99E0045A073 /* pthread_cleanup_push.3 */,
+				1F466AA51C83D99E0045A073 /* pthread_cond_broadcast.3 */,
+				1F466AA61C83D99E0045A073 /* pthread_cond_destroy.3 */,
+				1F466AA71C83D99E0045A073 /* pthread_cond_init.3 */,
+				1F466AA81C83D99E0045A073 /* pthread_cond_signal.3 */,
+				1F466AA91C83D99E0045A073 /* pthread_cond_timedwait.3 */,
+				1F466AAA1C83D99E0045A073 /* pthread_cond_wait.3 */,
+				1F466AAB1C83D99E0045A073 /* pthread_condattr.3 */,
+				1F466AAC1C83D99E0045A073 /* pthread_create.3 */,
+				1F466AAD1C83D99E0045A073 /* pthread_detach.3 */,
+				1F466AAE1C83D99E0045A073 /* pthread_equal.3 */,
+				1F466AAF1C83D99E0045A073 /* pthread_exit.3 */,
+				1F466AB01C83D99E0045A073 /* pthread_getschedparam.3 */,
+				1F466AB11C83D99E0045A073 /* pthread_getspecific.3 */,
+				1F466AB21C83D99E0045A073 /* pthread_join.3 */,
+				1F466AB31C83D99E0045A073 /* pthread_key_create.3 */,
+				1F466AB41C83D99E0045A073 /* pthread_key_delete.3 */,
+				1F466AB51C83D99E0045A073 /* pthread_kill.2 */,
+				1F466AB61C83D99E0045A073 /* pthread_main_np.3 */,
+				1F466AB71C83D99E0045A073 /* pthread_mutex_destroy.3 */,
+				1F466AB81C83D99E0045A073 /* pthread_mutex_init.3 */,
+				1F466AB91C83D99E0045A073 /* pthread_mutex_lock.3 */,
+				1F466ABA1C83D99E0045A073 /* pthread_mutex_trylock.3 */,
+				1F466ABB1C83D99E0045A073 /* pthread_mutex_unlock.3 */,
+				1F466ABC1C83D99E0045A073 /* pthread_mutexattr.3 */,
+				1F466ABD1C83D99E0045A073 /* pthread_once.3 */,
+				1F466ABE1C83D99E0045A073 /* pthread_rwlock_destroy.3 */,
+				1F466ABF1C83D99E0045A073 /* pthread_rwlock_init.3 */,
+				1F466AC01C83D99E0045A073 /* pthread_rwlock_rdlock.3 */,
+				1F466AC11C83D99E0045A073 /* pthread_rwlock_unlock.3 */,
+				1F466AC21C83D99E0045A073 /* pthread_rwlock_wrlock.3 */,
+				1F466AC31C83D99E0045A073 /* pthread_rwlockattr_destroy.3 */,
+				1F466AC41C83D99E0045A073 /* pthread_rwlockattr_getpshared.3 */,
+				1F466AC51C83D99E0045A073 /* pthread_rwlockattr_init.3 */,
+				1F466AC61C83D99E0045A073 /* pthread_rwlockattr_setpshared.3 */,
+				1F466AC71C83D99E0045A073 /* pthread_self.3 */,
+				1F466AC81C83D99E0045A073 /* pthread_setcancelstate.3 */,
+				1F466AC91C83D99E0045A073 /* pthread_setspecific.3 */,
+				1F466ACA1C83D99E0045A073 /* pthread_sigmask.2 */,
+			);
+			path = man;
+			sourceTree = "<group>";
+		};
+		1F466ACB1C83D99E0045A073 /* os */ = {
+			isa = PBXGroup;
+			children = (
+				1F466ACC1C83D99E0045A073 /* atomic.h */,
+				1F466ACD1C83D99E0045A073 /* atomic_llsc.h */,
+			);
+			path = os;
+			sourceTree = "<group>";
+		};
+		1F466ACE1C83D99E0045A073 /* private */ = {
+			isa = PBXGroup;
+			children = (
+				1F466ACF1C83D99E0045A073 /* introspection_private.h */,
+				1F466AD01C83D99E0045A073 /* posix_sched.h */,
+				1F466AD11C83D99E0045A073 /* private.h */,
+				1F466AD21C83D99E0045A073 /* qos.h */,
+				1F466AD31C83D99E0045A073 /* qos_private.h */,
+				1F466AD41C83D99E0045A073 /* spinlock_private.h */,
+				1F466AD51C83D99E0045A073 /* tsd_private.h */,
+				1F466AD61C83D99E0045A073 /* workqueue_private.h */,
+			);
+			path = private;
+			sourceTree = "<group>";
+		};
+		1F466AD71C83D99E0045A073 /* pthread */ = {
+			isa = PBXGroup;
+			children = (
+				1F466AD81C83D99E0045A073 /* pthread.h */,
+				1F466AD91C83D99E0045A073 /* pthread_impl.h */,
+				1F466ADA1C83D99E0045A073 /* pthread_spis.h */,
+				1F466ADB1C83D99E0045A073 /* qos.h */,
+				1F466ADC1C83D99E0045A073 /* sched.h */,
+				1F466ADD1C83D99E0045A073 /* spawn.h */,
+			);
+			path = pthread;
+			sourceTree = "<group>";
+		};
+		1F466ADE1C83D99E0045A073 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				1F466ADF1C83D99E0045A073 /* internal.h */,
+				1F466AE01C83D99E0045A073 /* mk_pthread_impl.c */,
+				1F466AE11C83D99E0045A073 /* plockstat.d */,
+				1F466AE21C83D99E0045A073 /* pthread.c */,
+				1F466AE31C83D99E0045A073 /* pthread_asm.s */,
+				1F466AE41C83D99E0045A073 /* pthread_atfork.c */,
+				1F466AE51C83D99E0045A073 /* pthread_cancelable.c */,
+				1F466AE61C83D99E0045A073 /* pthread_cond.c */,
+				1F466AE71C83D99E0045A073 /* pthread_mutex.c */,
+				1F466AE81C83D99E0045A073 /* pthread_mutex_up.c */,
+				1F466AE91C83D99E0045A073 /* pthread_rwlock.c */,
+				1F466AEA1C83D99E0045A073 /* pthread_support.c */,
+				1F466AEB1C83D99E0045A073 /* pthread_tsd.c */,
+				1F466AEC1C83D99E0045A073 /* qos.c */,
+				1F466AED1C83D99E0045A073 /* resolver.c */,
+				1F466AEE1C83D99E0045A073 /* resolver.h */,
+				1F466AEF1C83D99E0045A073 /* resolver_internal.h */,
+				1F466AF01C83D99E0045A073 /* thread_setup.c */,
+				1F466AF11C83D99E0045A073 /* variants */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		1F466AF11C83D99E0045A073 /* variants */ = {
+			isa = PBXGroup;
+			children = (
+				1F466AF21C83D99E0045A073 /* pthread_cancelable_cancel.c */,
+				1F466AF31C83D99E0045A073 /* pthread_cancelable_legacy.c */,
+				1F466AF41C83D99E0045A073 /* pthread_cond_legacy.c */,
+				1F466AF51C83D99E0045A073 /* pthread_mutex_legacy.c */,
+				1F466AF61C83D99E0045A073 /* pthread_rwlock_legacy.c */,
+			);
+			path = variants;
+			sourceTree = "<group>";
+		};
+		1F466AF71C83D99E0045A073 /* sys */ = {
+			isa = PBXGroup;
+			children = (
+				1F466AF81C83D99E0045A073 /* _pthread */,
+				1F466B041C83D99E0045A073 /* qos.h */,
+				1F466B051C83D99E0045A073 /* qos_private.h */,
+			);
+			path = sys;
+			sourceTree = "<group>";
+		};
+		1F466AF81C83D99E0045A073 /* _pthread */ = {
+			isa = PBXGroup;
+			children = (
+				1F466AF91C83D99E0045A073 /* _pthread_attr_t.h */,
+				1F466AFA1C83D99E0045A073 /* _pthread_cond_t.h */,
+				1F466AFB1C83D99E0045A073 /* _pthread_condattr_t.h */,
+				1F466AFC1C83D99E0045A073 /* _pthread_key_t.h */,
+				1F466AFD1C83D99E0045A073 /* _pthread_mutex_t.h */,
+				1F466AFE1C83D99E0045A073 /* _pthread_mutexattr_t.h */,
+				1F466AFF1C83D99E0045A073 /* _pthread_once_t.h */,
+				1F466B001C83D99E0045A073 /* _pthread_rwlock_t.h */,
+				1F466B011C83D99E0045A073 /* _pthread_rwlockattr_t.h */,
+				1F466B021C83D99E0045A073 /* _pthread_t.h */,
+				1F466B031C83D99E0045A073 /* _pthread_types.h */,
+			);
+			path = _pthread;
+			sourceTree = "<group>";
+		};
+		1F466B061C83D99E0045A073 /* tools */ = {
+			isa = PBXGroup;
+			children = (
+				1F466B071C83D99E0045A073 /* wqtrace.lua */,
+			);
+			path = tools;
+			sourceTree = "<group>";
+		};
+		1F466B081C83D99E0045A073 /* xcodescripts */ = {
+			isa = PBXGroup;
+			children = (
+				1F466B0A1C83D99E0045A073 /* install-codes.sh */,
+				1F466B0B1C83D99E0045A073 /* install-lldbmacros.sh */,
+				1F466B0C1C83D99E0045A073 /* install-manpages.sh */,
+				1F466B0D1C83D99E0045A073 /* install-symlinks.sh */,
+				1F466B0E1C83D99E0045A073 /* install-sys-headers.sh */,
+				1F466B111C83D99E0045A073 /* pthread.aliases */,
+			);
+			path = xcodescripts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
