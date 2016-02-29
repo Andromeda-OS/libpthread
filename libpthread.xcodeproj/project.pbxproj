@@ -6,11 +6,115 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		1F466A6A1C83D9240045A073 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F466A621C83D9240045A073 /* Kernel.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F051CD01859223C008F6CAE;
+			remoteInfo = dwarf;
+		};
+		1F466A6C1C83D9240045A073 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F466A621C83D9240045A073 /* Kernel.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1FAD56711859255500EDAF39;
+			remoteInfo = elf;
+		};
+		1F466A6E1C83D9240045A073 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F466A621C83D9240045A073 /* Kernel.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F3A87491859298E007D12D6;
+			remoteInfo = ctfconvert;
+		};
+		1F466A701C83D9240045A073 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F466A621C83D9240045A073 /* Kernel.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F37E27E18592E42001B9501;
+			remoteInfo = ctfmerge;
+		};
+		1F466A7B1C83D92A0045A073 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F466A721C83D92A0045A073 /* PlatformKEXTs.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1FA9346C1B89798000BD68E3;
+			remoteInfo = IOACPIFamily;
+		};
+		1F466A7D1C83D92A0045A073 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F466A721C83D92A0045A073 /* PlatformKEXTs.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F56E8C21B8ABC4B0095848C;
+			remoteInfo = AppleAPIC;
+		};
+		1F466A7F1C83D92A0045A073 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F466A721C83D92A0045A073 /* PlatformKEXTs.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F56E8A31B8A9ECB0095848C;
+			remoteInfo = AppleI386PlatformExpert;
+		};
+		1F466A811C83D92A0045A073 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F466A721C83D92A0045A073 /* PlatformKEXTs.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1FA9348E1B897E1600BD68E3;
+			remoteInfo = libkmod;
+		};
+		1F466A831C83D92A0045A073 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F466A721C83D92A0045A073 /* PlatformKEXTs.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1FA934A71B897EAD00BD68E3;
+			remoteInfo = "libkmodc++";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1F466A621C83D9240045A073 /* Kernel.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Kernel.xcodeproj; path = ../Kernel/Kernel.xcodeproj; sourceTree = "<group>"; };
+		1F466A721C83D92A0045A073 /* PlatformKEXTs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PlatformKEXTs.xcodeproj; path = ../PlatformKEXTs/PlatformKEXTs.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
 		1F466A5A1C83D8270045A073 = {
 			isa = PBXGroup;
 			children = (
+				1F466A611C83D9180045A073 /* References */,
 			);
+			sourceTree = "<group>";
+		};
+		1F466A611C83D9180045A073 /* References */ = {
+			isa = PBXGroup;
+			children = (
+				1F466A621C83D9240045A073 /* Kernel.xcodeproj */,
+				1F466A721C83D92A0045A073 /* PlatformKEXTs.xcodeproj */,
+			);
+			name = References;
+			sourceTree = "<group>";
+		};
+		1F466A631C83D9240045A073 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1F466A6B1C83D9240045A073 /* libdwarf.a */,
+				1F466A6D1C83D9240045A073 /* libelf.a */,
+				1F466A6F1C83D9240045A073 /* ctfconvert */,
+				1F466A711C83D9240045A073 /* ctfmerge */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1F466A731C83D92A0045A073 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1F466A7C1C83D92A0045A073 /* IOACPIFamily.kext */,
+				1F466A7E1C83D92A0045A073 /* AppleAPIC.kext */,
+				1F466A801C83D92A0045A073 /* AppleI386PlatformExpert.kext */,
+				1F466A821C83D92A0045A073 /* libkmod.a */,
+				1F466A841C83D92A0045A073 /* libkmodc++.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -31,11 +135,87 @@
 			);
 			mainGroup = 1F466A5A1C83D8270045A073;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 1F466A631C83D9240045A073 /* Products */;
+					ProjectRef = 1F466A621C83D9240045A073 /* Kernel.xcodeproj */;
+				},
+				{
+					ProductGroup = 1F466A731C83D92A0045A073 /* Products */;
+					ProjectRef = 1F466A721C83D92A0045A073 /* PlatformKEXTs.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		1F466A6B1C83D9240045A073 /* libdwarf.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libdwarf.a;
+			remoteRef = 1F466A6A1C83D9240045A073 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1F466A6D1C83D9240045A073 /* libelf.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libelf.a;
+			remoteRef = 1F466A6C1C83D9240045A073 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1F466A6F1C83D9240045A073 /* ctfconvert */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = ctfconvert;
+			remoteRef = 1F466A6E1C83D9240045A073 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1F466A711C83D9240045A073 /* ctfmerge */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = ctfmerge;
+			remoteRef = 1F466A701C83D9240045A073 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1F466A7C1C83D92A0045A073 /* IOACPIFamily.kext */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = IOACPIFamily.kext;
+			remoteRef = 1F466A7B1C83D92A0045A073 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1F466A7E1C83D92A0045A073 /* AppleAPIC.kext */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AppleAPIC.kext;
+			remoteRef = 1F466A7D1C83D92A0045A073 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1F466A801C83D92A0045A073 /* AppleI386PlatformExpert.kext */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AppleI386PlatformExpert.kext;
+			remoteRef = 1F466A7F1C83D92A0045A073 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1F466A821C83D92A0045A073 /* libkmod.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libkmod.a;
+			remoteRef = 1F466A811C83D92A0045A073 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1F466A841C83D92A0045A073 /* libkmodc++.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libkmodc++.a";
+			remoteRef = 1F466A831C83D92A0045A073 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin XCBuildConfiguration section */
 		1F466A5F1C83D8270045A073 /* Debug */ = {
