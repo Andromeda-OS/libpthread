@@ -6,12 +6,42 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		1F466B3B1C83E0600045A073 /* Headers */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 1F466B3C1C83E0600045A073 /* Build configuration list for PBXAggregateTarget "Headers" */;
+			buildPhases = (
+				1F466B421C83E0800045A073 /* Install Headers */,
+				1F466B491C83E0C80045A073 /* Install Private Headers */,
+				1F466B411C83E06F0045A073 /* Install Headers in /usr/include/sys */,
+			);
+			dependencies = (
+			);
+			name = Headers;
+			productName = Headers;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		1F466B321C83DA380045A073 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F466A821C83D92A0045A073 /* libkmod.a */; };
 		1F466B331C83DAEC0045A073 /* kern_init.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F466A8B1C83D99E0045A073 /* kern_init.c */; };
 		1F466B341C83DAEC0045A073 /* kern_policy.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F466A8D1C83D99E0045A073 /* kern_policy.c */; };
 		1F466B351C83DAEC0045A073 /* kern_support.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F466A8E1C83D99E0045A073 /* kern_support.c */; };
 		1F466B361C83DAEC0045A073 /* kern_synch.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F466A8F1C83D99E0045A073 /* kern_synch.c */; };
+		1F466B431C83E0B00045A073 /* pthread.h in Install Headers */ = {isa = PBXBuildFile; fileRef = 1F466AD81C83D99E0045A073 /* pthread.h */; };
+		1F466B441C83E0B00045A073 /* pthread_impl.h in Install Headers */ = {isa = PBXBuildFile; fileRef = 1F466AD91C83D99E0045A073 /* pthread_impl.h */; };
+		1F466B451C83E0B00045A073 /* pthread_spis.h in Install Headers */ = {isa = PBXBuildFile; fileRef = 1F466ADA1C83D99E0045A073 /* pthread_spis.h */; };
+		1F466B461C83E0B00045A073 /* qos.h in Install Headers */ = {isa = PBXBuildFile; fileRef = 1F466ADB1C83D99E0045A073 /* qos.h */; };
+		1F466B471C83E0B00045A073 /* sched.h in Install Headers */ = {isa = PBXBuildFile; fileRef = 1F466ADC1C83D99E0045A073 /* sched.h */; };
+		1F466B481C83E0B00045A073 /* spawn.h in Install Headers */ = {isa = PBXBuildFile; fileRef = 1F466ADD1C83D99E0045A073 /* spawn.h */; };
+		1F466B4A1C83E0EA0045A073 /* introspection_private.h in Install Private Headers */ = {isa = PBXBuildFile; fileRef = 1F466ACF1C83D99E0045A073 /* introspection_private.h */; };
+		1F466B4B1C83E0EA0045A073 /* posix_sched.h in Install Private Headers */ = {isa = PBXBuildFile; fileRef = 1F466AD01C83D99E0045A073 /* posix_sched.h */; };
+		1F466B4C1C83E0EA0045A073 /* private.h in Install Private Headers */ = {isa = PBXBuildFile; fileRef = 1F466AD11C83D99E0045A073 /* private.h */; };
+		1F466B4D1C83E0EA0045A073 /* qos.h in Install Private Headers */ = {isa = PBXBuildFile; fileRef = 1F466AD21C83D99E0045A073 /* qos.h */; };
+		1F466B4E1C83E0EA0045A073 /* qos_private.h in Install Private Headers */ = {isa = PBXBuildFile; fileRef = 1F466AD31C83D99E0045A073 /* qos_private.h */; };
+		1F466B4F1C83E0EA0045A073 /* spinlock_private.h in Install Private Headers */ = {isa = PBXBuildFile; fileRef = 1F466AD41C83D99E0045A073 /* spinlock_private.h */; };
+		1F466B501C83E0EA0045A073 /* tsd_private.h in Install Private Headers */ = {isa = PBXBuildFile; fileRef = 1F466AD51C83D99E0045A073 /* tsd_private.h */; };
+		1F466B511C83E0EA0045A073 /* workqueue_private.h in Install Private Headers */ = {isa = PBXBuildFile; fileRef = 1F466AD61C83D99E0045A073 /* workqueue_private.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,7 +115,51 @@
 			remoteGlobalIDString = 1F42B3DD18592FE90023356E;
 			remoteInfo = mach_kernel;
 		};
+		1F466B3F1C83E0660045A073 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F466A5B1C83D8270045A073 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1F466B3B1C83E0600045A073;
+			remoteInfo = Headers;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1F466B421C83E0800045A073 /* Install Headers */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(ANDROMEDA_SDK_ROOT)/usr/include/pthread";
+			dstSubfolderSpec = 0;
+			files = (
+				1F466B431C83E0B00045A073 /* pthread.h in Install Headers */,
+				1F466B441C83E0B00045A073 /* pthread_impl.h in Install Headers */,
+				1F466B451C83E0B00045A073 /* pthread_spis.h in Install Headers */,
+				1F466B461C83E0B00045A073 /* qos.h in Install Headers */,
+				1F466B471C83E0B00045A073 /* sched.h in Install Headers */,
+				1F466B481C83E0B00045A073 /* spawn.h in Install Headers */,
+			);
+			name = "Install Headers";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1F466B491C83E0C80045A073 /* Install Private Headers */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(ANDROMEDA_SDK_ROOT)/System/Library/Frameworks/System.framework/PrivateHeaders/pthread";
+			dstSubfolderSpec = 0;
+			files = (
+				1F466B4A1C83E0EA0045A073 /* introspection_private.h in Install Private Headers */,
+				1F466B4B1C83E0EA0045A073 /* posix_sched.h in Install Private Headers */,
+				1F466B4C1C83E0EA0045A073 /* private.h in Install Private Headers */,
+				1F466B4D1C83E0EA0045A073 /* qos.h in Install Private Headers */,
+				1F466B4E1C83E0EA0045A073 /* qos_private.h in Install Private Headers */,
+				1F466B4F1C83E0EA0045A073 /* spinlock_private.h in Install Private Headers */,
+				1F466B501C83E0EA0045A073 /* tsd_private.h in Install Private Headers */,
+				1F466B511C83E0EA0045A073 /* workqueue_private.h in Install Private Headers */,
+			);
+			name = "Install Private Headers";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1F466A621C83D9240045A073 /* Kernel.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Kernel.xcodeproj; path = ../Kernel/Kernel.xcodeproj; sourceTree = "<group>"; };
@@ -522,6 +596,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				1F466B401C83E0660045A073 /* PBXTargetDependency */,
 				1F466B311C83DA320045A073 /* PBXTargetDependency */,
 			);
 			name = pthread;
@@ -539,6 +614,9 @@
 				ORGANIZATIONNAME = "William Kent";
 				TargetAttributes = {
 					1F466B241C83D9E50045A073 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					1F466B3B1C83E0600045A073 = {
 						CreatedOnToolsVersion = 7.3;
 					};
 				};
@@ -566,6 +644,7 @@
 			projectRoot = "";
 			targets = (
 				1F466B241C83D9E50045A073 /* pthread */,
+				1F466B3B1C83E0600045A073 /* Headers */,
 			);
 		};
 /* End PBXProject section */
@@ -709,6 +788,21 @@
 			shellScript = ". \"${SRCROOT}/xcodescripts/install-codes.sh\"";
 			showEnvVarsInLog = 0;
 		};
+		1F466B411C83E06F0045A073 /* Install Headers in /usr/include/sys */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Install Headers in /usr/include/sys";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ". \"${SRCROOT}/xcodescripts/install-sys-headers.sh\"";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -730,6 +824,11 @@
 			isa = PBXTargetDependency;
 			name = mach_kernel;
 			targetProxy = 1F466B301C83DA320045A073 /* PBXContainerItemProxy */;
+		};
+		1F466B401C83E0660045A073 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1F466B3B1C83E0600045A073 /* Headers */;
+			targetProxy = 1F466B3F1C83E0660045A073 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -896,6 +995,20 @@
 			};
 			name = Release;
 		};
+		1F466B3D1C83E0600045A073 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1F466B3E1C83E0600045A073 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -913,6 +1026,14 @@
 			buildConfigurations = (
 				1F466B2C1C83D9E50045A073 /* Debug */,
 				1F466B2D1C83D9E50045A073 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		1F466B3C1C83E0600045A073 /* Build configuration list for PBXAggregateTarget "Headers" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F466B3D1C83E0600045A073 /* Debug */,
+				1F466B3E1C83E0600045A073 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
