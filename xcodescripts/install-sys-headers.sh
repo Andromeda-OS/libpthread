@@ -23,9 +23,7 @@
 
 set -e
 
-if [ "$ACTION" = build ]; then exit 0; fi
-
-DESTDIR="$DSTROOT/usr/include/sys"
+DESTDIR="${ANDROMEDA_SDK_ROOT}/usr/include/sys"
 mkdir -p "$DESTDIR"
 for X in \
 	qos.h \
@@ -33,7 +31,7 @@ for X in \
 	cp "sys/$X" "$DESTDIR"
 done
 
-DESTDIR="$DSTROOT/usr/local/include/sys"
+DESTDIR="${ANDROMEDA_SDK_ROOT}/usr/local/include/sys"
 mkdir -p "$DESTDIR"
 for X in \
 	qos_private.h \
@@ -41,7 +39,7 @@ for X in \
 	cp "sys/$X" "$DESTDIR"
 done
 
-DESTDIR="$DSTROOT/usr/include/sys/_pthread"
+DESTDIR="${ANDROMEDA_SDK_ROOT}/usr/include/sys/_pthread"
 mkdir -p "$DESTDIR"
 for X in \
 	_pthread_attr_t.h \

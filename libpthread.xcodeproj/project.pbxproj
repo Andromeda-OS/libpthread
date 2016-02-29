@@ -649,7 +649,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		1F466B371C83DE990045A073 /* Symlink Old Header Location */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -657,7 +657,7 @@
 			name = "Symlink Old Header Location";
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = ". \"${SRCROOT}/xcodescripts/install-symlinks.sh\"";
 			showEnvVarsInLog = 0;
@@ -679,7 +679,7 @@
 		};
 		1F466B391C83DEC40045A073 /* Install /usr/include/sys headers */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -687,7 +687,7 @@
 			name = "Install /usr/include/sys headers";
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = ". \"${SRCROOT}/xcodescripts/install-sys-headers.sh\"";
 			showEnvVarsInLog = 0;
