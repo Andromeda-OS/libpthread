@@ -899,6 +899,7 @@
 					"$(inherited)",
 					"$(ANDROMEDA_SDK_ROOT)/System/Library/Frameworks/Kernel.framework/PrivateHeaders",
 					"$(ANDROMEDA_SDK_ROOT)/System/Library/Frameworks/Kernel.framework/Headers",
+					"$(ANDROMEDA_SDK_ROOT)/System/Library/Frameworks/System.framework/PrivateHeaders",
 				);
 				INFOPLIST_FILE = "kern/pthread-Info.plist";
 				INSTALL_PATH = /System/Library/Extensions;
@@ -963,6 +964,7 @@
 					"$(inherited)",
 					"$(ANDROMEDA_SDK_ROOT)/System/Library/Frameworks/Kernel.framework/PrivateHeaders",
 					"$(ANDROMEDA_SDK_ROOT)/System/Library/Frameworks/Kernel.framework/Headers",
+					"$(ANDROMEDA_SDK_ROOT)/System/Library/Frameworks/System.framework/PrivateHeaders",
 				);
 				INFOPLIST_FILE = "kern/pthread-Info.plist";
 				INSTALL_PATH = /System/Library/Extensions;
