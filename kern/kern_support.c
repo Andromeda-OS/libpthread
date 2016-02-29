@@ -2197,7 +2197,7 @@ _workq_kernreturn(struct proc *p,
 	}
 	case WQOPS_THREAD_KEVENT_RETURN: {
 		int32_t kevent_retval;
-		int ret = kevent_qos_internal(p, -1, item, arg2, item, arg2, NULL, NULL, KEVENT_FLAG_WORKQ | KEVENT_FLAG_IMMEDIATE | KEVENT_FLAG_ERROR_EVENTS, &kevent_retval);
+		int ret = kevent_qos_internal(p, -1, item, arg2, item, arg2, 0, NULL, KEVENT_FLAG_WORKQ | KEVENT_FLAG_IMMEDIATE | KEVENT_FLAG_ERROR_EVENTS, &kevent_retval);
 		// We shouldn't be getting more errors out than events we put in, so
 		// reusing the input buffer should always provide enough space
 		assert(ret == KERN_SUCCESS && kevent_retval >= 0);
@@ -2905,7 +2905,7 @@ _setup_wqthread(proc_t p, thread_t th, pthread_priority_t priority, int flags, s
 
 	flags |= WQ_FLAG_THREAD_NEWSPI;
 
-	user_addr_t kevent_list = NULL;
+	user_addr_t kevent_list = 0;
 	int kevent_count = 0;
 	if (flags & WQ_FLAG_THREAD_KEVENT){
 		kevent_list = pthread_self_addr - KEVENT_LIST_LEN * sizeof(struct kevent_qos_s);
@@ -2916,7 +2916,7 @@ _setup_wqthread(proc_t p, thread_t th, pthread_priority_t priority, int flags, s
 
 		int32_t events_out = 0;
 
-		int ret = kevent_qos_internal(p, -1, NULL, 0, kevent_list, kevent_count,
+		int ret = kevent_qos_internal(p, -1, 0, 0, kevent_list, kevent_count,
 									  kevent_data_buf, &kevent_data_available,
 									  KEVENT_FLAG_WORKQ | KEVENT_FLAG_STACK_DATA | KEVENT_FLAG_STACK_EVENTS | KEVENT_FLAG_IMMEDIATE,
 									  &events_out);
@@ -2941,7 +2941,7 @@ _setup_wqthread(proc_t p, thread_t th, pthread_priority_t priority, int flags, s
 				stack_top_addr = (kevent_data_buf + kevent_data_available - stack_gap_min) & -stack_align_min;
 			}
 		} else {
-			kevent_list = NULL;
+			kevent_list = 0;
 			kevent_count = 0;
 		}
 	}
