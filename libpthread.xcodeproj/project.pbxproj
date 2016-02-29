@@ -749,6 +749,7 @@
 					"$(ANDROMEDA_SDK_ROOT)/System/Library/Frameworks/Kernel.framework/Headers",
 				);
 				INFOPLIST_FILE = "kern/pthread-Info.plist";
+				INSTALL_PATH = /System/Library/Extensions;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MODULE_NAME = me.sunsol.pthread;
 				MODULE_START = pthread_start;
@@ -812,6 +813,7 @@
 					"$(ANDROMEDA_SDK_ROOT)/System/Library/Frameworks/Kernel.framework/Headers",
 				);
 				INFOPLIST_FILE = "kern/pthread-Info.plist";
+				INSTALL_PATH = /System/Library/Extensions;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MODULE_NAME = me.sunsol.pthread;
 				MODULE_START = pthread_start;
