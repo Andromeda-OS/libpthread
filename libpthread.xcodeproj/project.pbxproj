@@ -1014,6 +1014,7 @@
 				1F466B2D1C83D9E50045A073 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1F466B3C1C83E0600045A073 /* Build configuration list for PBXAggregateTarget "Headers" */ = {
 			isa = XCConfigurationList;
@@ -1022,6 +1023,7 @@
 				1F466B3E1C83E0600045A073 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
