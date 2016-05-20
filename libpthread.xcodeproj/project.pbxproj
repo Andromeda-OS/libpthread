@@ -17,6 +17,7 @@
 				1F466B521C83E1870045A073 /* Symlink Old Header Location */,
 			);
 			dependencies = (
+				1FDA93561CEFA25F00257E8D /* PBXTargetDependency */,
 			);
 			name = Headers;
 			productName = Headers;
@@ -122,6 +123,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 1F466B3B1C83E0600045A073;
 			remoteInfo = Headers;
+		};
+		1FDA93551CEFA25F00257E8D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F466A621C83D9240045A073 /* Kernel.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1F42B3DD18592FE90023356E;
+			remoteInfo = mach_kernel;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -813,6 +821,11 @@
 			isa = PBXTargetDependency;
 			target = 1F466B3B1C83E0600045A073 /* Headers */;
 			targetProxy = 1F466B3F1C83E0660045A073 /* PBXContainerItemProxy */;
+		};
+		1FDA93561CEFA25F00257E8D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = mach_kernel;
+			targetProxy = 1FDA93551CEFA25F00257E8D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
