@@ -124,6 +124,20 @@
 			remoteGlobalIDString = 1F466B3B1C83E0600045A073;
 			remoteInfo = Headers;
 		};
+		1FB6808A1DDBE4E1008980BD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F466A721C83D92A0045A073 /* PlatformKEXTs.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F4DBDCF1DC584FC00A55AF4;
+			remoteInfo = IOStorageFamily;
+		};
+		1FB6808C1DDBE4E1008980BD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F466A721C83D92A0045A073 /* PlatformKEXTs.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F994E861DC6D40500BB565B;
+			remoteInfo = AppleFileSystemDriver;
+		};
 		1FDA93551CEFA25F00257E8D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1F466A621C83D9240045A073 /* Kernel.xcodeproj */;
@@ -137,7 +151,7 @@
 		1F466B421C83E0800045A073 /* Install Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(ANDROMEDA_SDK_ROOT)/usr/include/pthread";
+			dstPath = "$(ANDROMEDA_SDK_HEADER_DIR)/usr/include/pthread";
 			dstSubfolderSpec = 0;
 			files = (
 				1F466B431C83E0B00045A073 /* pthread.h in Install Headers */,
@@ -153,7 +167,7 @@
 		1F466B491C83E0C80045A073 /* Install Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(ANDROMEDA_SDK_ROOT)/System/Library/Frameworks/System.framework/PrivateHeaders/pthread";
+			dstPath = "$(ANDROMEDA_SDK_HEADER_DIR)/System/Library/Frameworks/System.framework/PrivateHeaders/pthread";
 			dstSubfolderSpec = 0;
 			files = (
 				1F466B4A1C83E0EA0045A073 /* introspection_private.h in Install Private Headers */,
@@ -357,6 +371,8 @@
 				1F466A801C83D92A0045A073 /* AppleI386PlatformExpert.kext */,
 				1F466A821C83D92A0045A073 /* libkmod.a */,
 				1F466A841C83D92A0045A073 /* libkmodc++.a */,
+				1FB6808B1DDBE4E1008980BD /* IOStorageFamily.kext */,
+				1FB6808D1DDBE4E1008980BD /* AppleFileSystemDriver.kext */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -720,6 +736,20 @@
 			remoteRef = 1F466A831C83D92A0045A073 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		1FB6808B1DDBE4E1008980BD /* IOStorageFamily.kext */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = IOStorageFamily.kext;
+			remoteRef = 1FB6808A1DDBE4E1008980BD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1FB6808D1DDBE4E1008980BD /* AppleFileSystemDriver.kext */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AppleFileSystemDriver.kext;
+			remoteRef = 1FB6808C1DDBE4E1008980BD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -834,6 +864,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ADDITIONAL_SDKS = "$(ANDROMEDA_SDK_ROOT)";
+				ANDROMEDA_SDK_HEADER_DIR = "$(ANDROMEDA_SDK_ROOT)";
 				ANDROMEDA_SDK_ROOT = "$(PROJECT_TEMP_ROOT)/xnu";
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -866,6 +897,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ADDITIONAL_SDKS = "$(ANDROMEDA_SDK_ROOT)";
+				ANDROMEDA_SDK_HEADER_DIR = "";
 				ANDROMEDA_SDK_ROOT = "$(DSTROOT)";
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
