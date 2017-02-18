@@ -145,6 +145,13 @@
 			remoteGlobalIDString = 1F42B3DD18592FE90023356E;
 			remoteInfo = mach_kernel;
 		};
+		1FE4C7CF1E58EF8B009DA903 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F466A721C83D92A0045A073 /* PlatformKEXTs.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1FAA5D811DE91B4900DFA53F;
+			remoteInfo = IOATAFamily;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -373,6 +380,7 @@
 				1F466A841C83D92A0045A073 /* libkmodc++.a */,
 				1FB6808B1DDBE4E1008980BD /* IOStorageFamily.kext */,
 				1FB6808D1DDBE4E1008980BD /* AppleFileSystemDriver.kext */,
+				1FE4C7D01E58EF8B009DA903 /* IOATAFamily.kext */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -633,7 +641,7 @@
 		1F466A5B1C83D8270045A073 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "William Kent";
 				TargetAttributes = {
 					1F466B241C83D9E50045A073 = {
@@ -748,6 +756,13 @@
 			fileType = wrapper.cfbundle;
 			path = AppleFileSystemDriver.kext;
 			remoteRef = 1FB6808C1DDBE4E1008980BD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1FE4C7D01E58EF8B009DA903 /* IOATAFamily.kext */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = IOATAFamily.kext;
+			remoteRef = 1FE4C7CF1E58EF8B009DA903 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
