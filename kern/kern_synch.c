@@ -30,7 +30,6 @@
  *	pthread_support.c
  */
 
-#define NEEDS_SCHED_CALL_T
 #include <sys/param.h>
 #include <sys/queue.h>
 #include <sys/resourcevar.h>
@@ -69,6 +68,7 @@
 #include <kern/zalloc.h>
 #include <kern/sched_prim.h>
 #include <kern/processor.h>
+#include <kern/block_hint.h>
 //#include <kern/mach_param.h>
 #include <mach/mach_vm.h>
 #include <mach/mach_param.h>
@@ -272,13 +272,12 @@ static int ksyn_findobj(user_addr_t uaddr, uint64_t *objectp, uint64_t *offsetp)
 
 static int _wait_result_to_errno(wait_result_t result);
 
-static int ksyn_wait(ksyn_wait_queue_t, int, uint32_t, int, uint64_t, thread_continue_t);
+static int ksyn_wait(ksyn_wait_queue_t, int, uint32_t, int, uint64_t, thread_continue_t, block_hint_t);
 static kern_return_t ksyn_signal(ksyn_wait_queue_t, int, ksyn_waitq_element_t, uint32_t);
 static void ksyn_freeallkwe(ksyn_queue_t kq);
 
 static kern_return_t ksyn_mtxsignal(ksyn_wait_queue_t, ksyn_waitq_element_t kwe, uint32_t);
 static void ksyn_mtx_update_owner_qos_override(ksyn_wait_queue_t, uint64_t tid, boolean_t prepost);
-static void ksyn_mtx_transfer_qos_override(ksyn_wait_queue_t, ksyn_waitq_element_t);
 static void ksyn_mtx_drop_qos_override(ksyn_wait_queue_t);
 
 static int kwq_handle_unlock(ksyn_wait_queue_t, uint32_t mgen, uint32_t rw_wc, uint32_t *updatep, int flags, int *blockp, uint32_t premgen);
@@ -469,8 +468,8 @@ _ksyn_handle_missed_wakeups(ksyn_wait_queue_t kwq,
 {
 	int res = 0;
 	if (kwq->kw_pre_intrcount != 0 &&
-	    kwq->kw_pre_intrtype == type &&
-	    is_seqlower_eq(lockseq, kwq->kw_pre_intrseq)) {
+		kwq->kw_pre_intrtype == type &&
+		(kwq->kw_pre_intrseq == 0 || is_seqlower_eq(lockseq, kwq->kw_pre_intrseq))) {
 		kwq->kw_pre_intrcount--;
 		*retval = kwq->kw_pre_intrretbits;
 		if (kwq->kw_pre_intrcount == 0) {
@@ -589,17 +588,20 @@ static void ksyn_mtx_update_owner_qos_override(ksyn_wait_queue_t kwq, uint64_t t
 	}
 }
 
-static void ksyn_mtx_transfer_qos_override(ksyn_wait_queue_t kwq, ksyn_waitq_element_t kwe)
+static boolean_t
+ksyn_mtx_transfer_qos_override_begin(ksyn_wait_queue_t kwq,
+		ksyn_waitq_element_t kwe, uint64_t *kw_owner)
 {
+	boolean_t needs_commit = FALSE;
 	if (!(kwq->kw_pflags & KSYN_WQ_SHARED)) {
 		boolean_t wasboosted = (kwq->kw_kflags & KSYN_KWF_QOS_APPLIED) ? TRUE : FALSE;
-		
+
 		if (kwq->kw_inqueue > 1) {
 			boolean_t boostsucceeded;
-			
+
 			// More than one waiter, so resource will still be contended after handing off ownership
 			boostsucceeded = pthread_kern->proc_usynch_thread_qos_add_override_for_resource(current_task(), kwe->kwe_uth, 0, kwq->kw_qos_override, TRUE, kwq->kw_addr, THREAD_QOS_OVERRIDE_TYPE_PTHREAD_MUTEX);
-			
+
 			if (boostsucceeded) {
 				kwq->kw_kflags |= KSYN_KWF_QOS_APPLIED;
 			}
@@ -616,12 +618,25 @@ static void ksyn_mtx_transfer_qos_override(ksyn_wait_queue_t kwq, ksyn_waitq_ele
 				PTHREAD_TRACE(TRACE_psynch_ksyn_incorrect_owner, 0, 0, 0, 0, 0);
 			} else if (thread_tid(current_thread()) != kwq->kw_owner) {
 				PTHREAD_TRACE(TRACE_psynch_ksyn_incorrect_owner, kwq->kw_owner, 0, 0, 0, 0);
-				pthread_kern->proc_usynch_thread_qos_remove_override_for_resource(current_task(), NULL, kwq->kw_owner, kwq->kw_addr, THREAD_QOS_OVERRIDE_TYPE_PTHREAD_MUTEX);
+				*kw_owner = kwq->kw_owner;
+				needs_commit = TRUE;
 			} else {
-				pthread_kern->proc_usynch_thread_qos_remove_override_for_resource(current_task(), current_uthread(), 0, kwq->kw_addr, THREAD_QOS_OVERRIDE_TYPE_PTHREAD_MUTEX);
+				*kw_owner = 0;
+				needs_commit = TRUE;
 			}
 		}
 	}
+	return needs_commit;
+}
+
+static void
+ksyn_mtx_transfer_qos_override_commit(ksyn_wait_queue_t kwq, uint64_t kw_owner)
+{
+	struct uthread *uthread = kw_owner ? NULL : current_uthread();
+
+	pthread_kern->proc_usynch_thread_qos_remove_override_for_resource(
+			current_task(), uthread, kw_owner, kwq->kw_addr,
+			THREAD_QOS_OVERRIDE_TYPE_PTHREAD_MUTEX);
 }
 
 static void ksyn_mtx_drop_qos_override(ksyn_wait_queue_t kwq)
@@ -746,7 +761,7 @@ _psynch_mutexwait(__unused proc_t p,
 	ksyn_mtx_update_owner_qos_override(kwq, tid, FALSE);
 	kwq->kw_owner = tid;
 
-	error = ksyn_wait(kwq, KSYN_QUEUE_WRITER, mgen, ins_flags, 0, psynch_mtxcontinue);
+	error = ksyn_wait(kwq, KSYN_QUEUE_WRITER, mgen, ins_flags, 0, psynch_mtxcontinue, kThreadWaitPThreadMutex);
 	// ksyn_wait drops wait queue lock
 out:
 	ksyn_wqrelease(kwq, 1, (KSYN_WQTYPE_INWAIT|KSYN_WQTYPE_MTX));
@@ -809,6 +824,8 @@ static kern_return_t
 ksyn_mtxsignal(ksyn_wait_queue_t kwq, ksyn_waitq_element_t kwe, uint32_t updateval)
 {
 	kern_return_t ret;
+	boolean_t needs_commit;
+	uint64_t kw_owner;
 
 	if (!kwe) {
 		kwe = TAILQ_FIRST(&kwq->kw_ksynqueues[KSYN_QUEUE_WRITER].ksynq_kwelist);
@@ -817,7 +834,7 @@ ksyn_mtxsignal(ksyn_wait_queue_t kwq, ksyn_waitq_element_t kwe, uint32_t updatev
 		}
 	}
 
-	ksyn_mtx_transfer_qos_override(kwq, kwe);
+	needs_commit = ksyn_mtx_transfer_qos_override_begin(kwq, kwe, &kw_owner);
 	kwq->kw_owner = kwe->kwe_tid;
 
 	ret = ksyn_signal(kwq, KSYN_QUEUE_WRITER, kwe, updateval);
@@ -826,8 +843,9 @@ ksyn_mtxsignal(ksyn_wait_queue_t kwq, ksyn_waitq_element_t kwe, uint32_t updatev
 	if (ret != KERN_SUCCESS) {
 		ksyn_mtx_drop_qos_override(kwq);
 		kwq->kw_owner = 0;
+	} else if (needs_commit) {
+		ksyn_mtx_transfer_qos_override_commit(kwq, kw_owner);
 	}
-	
 	return ret;
 }
 
@@ -1171,7 +1189,7 @@ _psynch_cvwait(__unused proc_t p,
 			clock_absolutetime_interval_to_deadline(abstime, &abstime);
 		}
 		
-		error = ksyn_wait(ckwq, KSYN_QUEUE_WRITER, cgen, SEQFIT, abstime, psynch_cvcontinue);
+		error = ksyn_wait(ckwq, KSYN_QUEUE_WRITER, cgen, SEQFIT, abstime, psynch_cvcontinue, kThreadWaitPThreadCondVar);
 		// ksyn_wait drops wait queue lock
 	}
 	
@@ -1321,7 +1339,9 @@ __psynch_rw_lock(int type,
 		    _ksyn_handle_prepost(kwq, prepost_type, lockseq, retval)) {
 			ksyn_wqunlock(kwq);
 		} else {
-			error = ksyn_wait(kwq, kqi, lgenval, SEQFIT, 0, THREAD_CONTINUE_NULL);
+			block_hint_t block_hint = type == PTH_RW_TYPE_READ ?
+				kThreadWaitPThreadRWLockRead : kThreadWaitPThreadRWLockWrite;
+			error = ksyn_wait(kwq, kqi, lgenval, SEQFIT, 0, THREAD_CONTINUE_NULL, block_hint);
 			// ksyn_wait drops wait queue lock
 			if (error == 0) {
 				uthread_t uth = current_uthread();
@@ -1414,7 +1434,8 @@ _psynch_rw_unlock(__unused proc_t p,
 	int diff;
 	uint32_t count = 0;
 	uint32_t curgen = lgenval & PTHRW_COUNT_MASK;
-	
+	int clearedkflags = 0;
+
 	error = ksyn_wqfind(rwlock, lgenval, ugenval, rw_wc, flags, (KSYN_WQTYPE_INDROP | KSYN_WQTYPE_RWLOCK), &kwq);
 	if (error != 0) {
 		return(error);
@@ -1440,6 +1461,7 @@ _psynch_rw_unlock(__unused proc_t p,
 	/* no prepost and all threads are in place, reset the bit */
 	if ((isinit != 0) && ((kwq->kw_kflags & KSYN_KWF_INITCLEARED) != 0)){
 		kwq->kw_kflags &= ~KSYN_KWF_INITCLEARED;
+		clearedkflags = 1;
 	}
 	
 	/* can handle unlock now */
@@ -1456,7 +1478,14 @@ out:
 		/* update bits?? */
 		*retval = updatebits;
 	}
-	
+
+	// <rdar://problem/22244050> If any of the wakeups failed because they already
+	// returned to userspace because of a signal then we need to ensure that the
+	// reset state is not cleared when that thread returns. Otherwise,
+	// _pthread_rwlock_lock will clear the interrupted state before it is read.
+	if (clearedkflags != 0 && kwq->kw_pre_intrcount > 0) {
+		kwq->kw_kflags |= KSYN_KWF_INITCLEARED;
+	}
 	
 	ksyn_wqunlock(kwq);
 	ksyn_wqrelease(kwq, 0, (KSYN_WQTYPE_INDROP | KSYN_WQTYPE_RWLOCK));
@@ -1809,7 +1838,8 @@ ksyn_wait(ksyn_wait_queue_t kwq,
 	  uint32_t lockseq,
 	  int fit,
 	  uint64_t abstime,
-	  thread_continue_t continuation)
+	  thread_continue_t continuation,
+	  block_hint_t block_hint)
 {
 	int res;
 
@@ -1830,6 +1860,7 @@ ksyn_wait(ksyn_wait_queue_t kwq,
 		return res;
 	}
 	
+	thread_set_pending_block_hint(th, block_hint);
 	assert_wait_deadline_with_leeway(&kwe->kwe_psynchretval, THREAD_ABORTSAFE, TIMEOUT_URGENCY_USER_NORMAL, abstime, 0);
 	ksyn_wqunlock(kwq);
 	
@@ -2590,4 +2621,53 @@ psynch_zoneinit(void)
 {
 	kwq_zone = (zone_t)pthread_kern->zinit(sizeof(struct ksyn_wait_queue), 8192 * sizeof(struct ksyn_wait_queue), 4096, "ksyn_wait_queue");
 	kwe_zone = (zone_t)pthread_kern->zinit(sizeof(struct ksyn_waitq_element), 8192 * sizeof(struct ksyn_waitq_element), 4096, "ksyn_waitq_element");
+}
+
+void *
+_pthread_get_thread_kwq(thread_t thread)
+{
+	assert(thread);
+	struct uthread * uthread = pthread_kern->get_bsdthread_info(thread);
+	assert(uthread);
+	ksyn_waitq_element_t kwe = pthread_kern->uthread_get_uukwe(uthread);
+	assert(kwe);
+	ksyn_wait_queue_t kwq = kwe->kwe_kwqqueue;
+	return kwq;
+}
+
+/* This function is used by stackshot to determine why a thread is blocked, and report
+ * who owns the object that the thread is blocked on. It should *only* be called if the
+ * `block_hint' field in the relevant thread's struct is populated with something related
+ * to pthread sync objects.
+ */
+void
+_pthread_find_owner(thread_t thread, struct stackshot_thread_waitinfo * waitinfo)
+{
+	ksyn_wait_queue_t kwq = _pthread_get_thread_kwq(thread);
+	switch (waitinfo->wait_type) {
+		case kThreadWaitPThreadMutex:
+			assert((kwq->kw_type & KSYN_WQTYPE_MASK) == KSYN_WQTYPE_MTX);
+			waitinfo->owner   = kwq->kw_owner;
+			waitinfo->context = kwq->kw_addr;
+			break;
+		/* Owner of rwlock not stored in kernel space due to races. Punt
+		 * and hope that the userspace address is helpful enough. */
+		case kThreadWaitPThreadRWLockRead:
+		case kThreadWaitPThreadRWLockWrite:
+			assert((kwq->kw_type & KSYN_WQTYPE_MASK) == KSYN_WQTYPE_RWLOCK);
+			waitinfo->owner   = 0;
+			waitinfo->context = kwq->kw_addr;
+			break;
+		/* Condvars don't have owners, so just give the userspace address. */
+		case kThreadWaitPThreadCondVar:
+			assert((kwq->kw_type & KSYN_WQTYPE_MASK) == KSYN_WQTYPE_CVAR);
+			waitinfo->owner   = 0;
+			waitinfo->context = kwq->kw_addr;
+			break;
+		case kThreadWaitNone:
+		default:
+			waitinfo->owner = 0;
+			waitinfo->context = 0;
+			break;
+	}
 }

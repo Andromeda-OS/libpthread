@@ -2,14 +2,14 @@
  * Copyright (c) 2000-2003, 2007, 2012 Apple Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
- * 
+ *
  * This file contains Original Code and/or Modifications of Original Code
  * as defined in and that are subject to the Apple Public Source License
  * Version 2.0 (the 'License'). You may not use this file except in
  * compliance with the License. Please obtain a copy of the License at
  * http://www.opensource.apple.com/apsl/ and read it before using this
  * file.
- * 
+ *
  * The Original Code and all software distributed under the License are
  * distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
  * EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
@@ -17,29 +17,29 @@
  * FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
  * Please see the License for the specific language governing rights and
  * limitations under the License.
- * 
+ *
  * @APPLE_LICENSE_HEADER_END@
  */
 /*
- * Copyright 1996 1995 by Open Software Foundation, Inc. 1997 1996 1995 1994 1993 1992 1991  
- *              All Rights Reserved 
- *  
- * Permission to use, copy, modify, and distribute this software and 
- * its documentation for any purpose and without fee is hereby granted, 
- * provided that the above copyright notice appears in all copies and 
- * that both the copyright notice and this permission notice appear in 
- * supporting documentation. 
- *  
- * OSF DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE 
- * INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS 
- * FOR A PARTICULAR PURPOSE. 
- *  
- * IN NO EVENT SHALL OSF BE LIABLE FOR ANY SPECIAL, INDIRECT, OR 
- * CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM 
- * LOSS OF USE, DATA OR PROFITS, WHETHER IN ACTION OF CONTRACT, 
- * NEGLIGENCE, OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION 
- * WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. 
- * 
+ * Copyright 1996 1995 by Open Software Foundation, Inc. 1997 1996 1995 1994 1993 1992 1991
+ *              All Rights Reserved
+ *
+ * Permission to use, copy, modify, and distribute this software and
+ * its documentation for any purpose and without fee is hereby granted,
+ * provided that the above copyright notice appears in all copies and
+ * that both the copyright notice and this permission notice appear in
+ * supporting documentation.
+ *
+ * OSF DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE
+ * INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+ * FOR A PARTICULAR PURPOSE.
+ *
+ * IN NO EVENT SHALL OSF BE LIABLE FOR ANY SPECIAL, INDIRECT, OR
+ * CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+ * LOSS OF USE, DATA OR PROFITS, WHETHER IN ACTION OF CONTRACT,
+ * NEGLIGENCE, OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION
+ * WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ *
  */
 /*
  * MkLinux
@@ -80,7 +80,7 @@ static struct {
 	uintptr_t destructor;
 } _pthread_keys[_INTERNAL_POSIX_THREAD_KEYS_END];
 
-static pthread_lock_t tsd_lock = LOCK_INITIALIZER;
+static _pthread_lock tsd_lock = _PTHREAD_LOCK_INITIALIZER;
 
 // The pthread_tsd destruction order can be reverted to the old (pre-10.11) order
 // by setting this environment variable.
@@ -133,7 +133,7 @@ pthread_key_create(pthread_key_t *key, void (*destructor)(void *))
 	int res = EAGAIN; // Returns EAGAIN if key cannot be allocated.
 	pthread_key_t k;
 
-	LOCK(tsd_lock);
+	_PTHREAD_LOCK(tsd_lock);
 	for (k = __pthread_tsd_start; k < __pthread_tsd_end; k++) {
 		if (_pthread_key_set_destructor(k, destructor)) {
 			*key = k;
@@ -141,7 +141,7 @@ pthread_key_create(pthread_key_t *key, void (*destructor)(void *))
 			break;
 		}
 	}
-	UNLOCK(tsd_lock);
+	_PTHREAD_UNLOCK(tsd_lock);
 
 	return res;
 }
@@ -151,20 +151,20 @@ pthread_key_delete(pthread_key_t key)
 {
 	int res = EINVAL; // Returns EINVAL if key is not allocated.
 
-	LOCK(tsd_lock);
+	_PTHREAD_LOCK(tsd_lock);
 	if (key >= __pthread_tsd_start && key < __pthread_tsd_end) {
 		if (_pthread_key_unset_destructor(key)) {
 			struct _pthread *p;
-			LOCK(_pthread_list_lock);
+			_PTHREAD_LOCK(_pthread_list_lock);
 			TAILQ_FOREACH(p, &__pthread_head, plist) {
 				// No lock for word-sized write.
 				p->tsd[key] = 0;
 			}
-			UNLOCK(_pthread_list_lock);
+			_PTHREAD_UNLOCK(_pthread_list_lock);
 			res = 0;
 		}
 	}
-	UNLOCK(tsd_lock);
+	_PTHREAD_UNLOCK(tsd_lock);
 
 	return res;
 }
@@ -191,6 +191,21 @@ pthread_setspecific(pthread_key_t key, const void *value)
 				self->max_tsd_key = (int)key;
 			}
 		}
+	}
+#endif // !VARIANT_DYLD
+
+	return res;
+}
+
+int
+_pthread_setspecific_static(pthread_key_t key, void *value)
+{
+	int res = EINVAL;
+
+#if !VARIANT_DYLD
+	if (key < __pthread_tsd_start) {
+		_pthread_setspecific_direct(key, value);
+		res = 0;
 	}
 #endif // !VARIANT_DYLD
 
@@ -230,7 +245,7 @@ _pthread_tsd_cleanup_new(pthread_t self)
 {
 	int j;
 
-	// clean up all keys except the garbage collection key
+	// clean up all keys
 	for (j = 0; j < PTHREAD_DESTRUCTOR_ITERATIONS; j++) {
 		pthread_key_t k;
 		for (k = __pthread_tsd_start; k <= self->max_tsd_key; k++) {
@@ -238,23 +253,11 @@ _pthread_tsd_cleanup_new(pthread_t self)
 		}
 
 		for (k = __pthread_tsd_first; k <= __pthread_tsd_max; k++) {
-			if (k >= __PTK_FRAMEWORK_GC_KEY0 && k <= __PTK_FRAMEWORK_GC_KEY9) {
-				// GC must be cleaned up last
-				continue;
-			}
 			_pthread_tsd_cleanup_key(self, k);
 		}
 	}
 
 	self->max_tsd_key = 0;
-
-	// clean up all the GC keys
-	for (j = 0; j < PTHREAD_DESTRUCTOR_ITERATIONS; j++) {
-		pthread_key_t k;
-		for (k = __PTK_FRAMEWORK_GC_KEY0; k <= __PTK_FRAMEWORK_GC_KEY9; k++) {
-			_pthread_tsd_cleanup_key(self, k);
-		}
-	}
 }
 
 static void
@@ -266,7 +269,7 @@ _pthread_tsd_behaviour_check(pthread_t self)
 	Dl_info i;
 	pthread_key_t k;
 
-	for (k = __pthread_tsd_start; k <= __pthread_tsd_end; k++) {
+	for (k = __pthread_tsd_start; k < __pthread_tsd_end; k++) {
 		void (*destructor)(void *);
 		if (_pthread_key_get_destructor(k, &destructor)) {
 			void **ptr = &self->tsd[k];
@@ -339,12 +342,12 @@ pthread_key_init_np(int key, void (*destructor)(void *))
 {
 	int res = EINVAL; // Returns EINVAL if key is out of range.
 	if (key >= __pthread_tsd_first && key < __pthread_tsd_start) {
-		LOCK(tsd_lock);
+		_PTHREAD_LOCK(tsd_lock);
 		_pthread_key_set_destructor(key, destructor);
 		if (key > __pthread_tsd_max) {
 			__pthread_tsd_max = key;
 		}
-		UNLOCK(tsd_lock);
+		_PTHREAD_UNLOCK(tsd_lock);
 		res = 0;
 	}
 	return res;

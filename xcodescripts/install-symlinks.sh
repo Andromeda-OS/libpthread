@@ -21,20 +21,20 @@
 # @APPLE_LICENSE_HEADER_END@
 #
 
+if [ "$ACTION" = build ]; then exit 0; fi
+
 #
 # Symlink old header locations.
 #
 
-set -e
+ln -sf "pthread/pthread.h" "$DSTROOT/usr/include/pthread.h"
+ln -sf "pthread/pthread_impl.h" "$DSTROOT/usr/include/pthread_impl.h"
+ln -sf "pthread/pthread_spis.h" "$DSTROOT/usr/include/pthread_spis.h"
+ln -sf "pthread/sched.h" "$DSTROOT/usr/include/sched.h"
 
-ln -sf "pthread/pthread.h" "${ANDROMEDA_SDK_ROOT}/usr/include/pthread.h"
-ln -sf "pthread/pthread_impl.h" "${ANDROMEDA_SDK_ROOT}/usr/include/pthread_impl.h"
-ln -sf "pthread/pthread_spis.h" "${ANDROMEDA_SDK_ROOT}/usr/include/pthread_spis.h"
-ln -sf "pthread/sched.h" "${ANDROMEDA_SDK_ROOT}/usr/include/sched.h"
-
-ln -sf "pthread/posix_sched.h" "${ANDROMEDA_SDK_ROOT}/usr/local/include/posix_sched.h"
-ln -sf "pthread/spinlock_private.h" "${ANDROMEDA_SDK_ROOT}/usr/local/include/pthread_spinlock.h"
-ln -sf "pthread/workqueue_private.h" "${ANDROMEDA_SDK_ROOT}/usr/local/include/pthread_workqueue.h"
-mkdir -p "${ANDROMEDA_SDK_ROOT}/System/Library/Frameworks/System.framework/Versions/B/PrivateHeaders/"
-ln -sf "pthread/tsd_private.h" \
-	"${ANDROMEDA_SDK_ROOT}/System/Library/Frameworks/System.framework/Versions/B/PrivateHeaders/pthread_machdep.h"
+ln -sf "pthread/posix_sched.h" "$DSTROOT/usr/local/include/posix_sched.h"
+ln -sf "pthread/spinlock_private.h" "$DSTROOT/usr/local/include/pthread_spinlock.h"
+ln -sf "pthread/workqueue_private.h" "$DSTROOT/usr/local/include/pthread_workqueue.h"
+mkdir -p "$DSTROOT/System/Library/Frameworks/System.framework/Versions/B/PrivateHeaders/"
+ln -sf "../../../../../../../usr/local/include/pthread/tsd_private.h" \
+	"$DSTROOT/System/Library/Frameworks/System.framework/Versions/B/PrivateHeaders/pthread_machdep.h"
