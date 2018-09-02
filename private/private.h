@@ -26,7 +26,7 @@
 
 #include <sys/cdefs.h>
 #include <Availability.h>
-#include <pthread/tsd_private.h>
+#include "tsd_private.h"
 
 /* get the thread specific errno value */
 __header_always_inline int
