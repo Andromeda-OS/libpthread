@@ -436,7 +436,7 @@ OS_ASSUME_NONNULL_END
 
 #if defined(OS_UNFAIR_LOCK_INLINE) && OS_UNFAIR_LOCK_INLINE
 
-#include <pthread/tsd_private.h>
+#include "tsd_private.h"
 
 #ifdef __cplusplus
 extern "C++" {
