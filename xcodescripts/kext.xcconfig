@@ -22,7 +22,7 @@ INFOPLIST_FILE = kern/pthread-Info.plist
 
 ALWAYS_SEARCH_USER_PATHS = NO
 SRCROOT_SEARCH_PATHS = $(SRCROOT) $(SRCROOT)/pthread $(SRCROOT)/private
-HEADER_SEARCH_PATHS = $(SRCROOT)/SDK/usr/include $(SRCROOT)/SDK/System/Library/Frameworks/Kernel.framework/PrivateHeaders $(SRCROOT)/SDK/System/Library/Frameworks/Kernel.framework/Headers $(SRCROOT)/SDK/System/Library/Frameworks/System.framework/PrivateHeaders $(SRCROOT)/SDK/System/Library/Frameworks/System.framework/Headers $(SRCROOT_SEARCH_PATHS)
+HEADER_SEARCH_PATHS = $(SRCROOT)/SDK/include $(SRCROOT)/SDK/Frameworks/Kernel.framework/PrivateHeaders $(SRCROOT)/SDK/Frameworks/Kernel.framework/Headers $(SRCROOT)/SDK/Frameworks/System.framework/PrivateHeaders $(SRCROOT)/SDK/Frameworks/System.framework/Headers $(SRCROOT_SEARCH_PATHS)
 GCC_C_LANGUAGE_STANDARD = gnu99
 CLANG_CXX_LANGUAGE_STANDARD = gnu++0x
 CLANG_CXX_LIBRARY = libc++
