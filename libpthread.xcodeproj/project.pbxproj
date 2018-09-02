@@ -422,7 +422,6 @@
 		C99AD87D15DF04D10009A6F8 /* pthread_asm.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = pthread_asm.s; sourceTree = "<group>"; };
 		C99B17DA189C2E1B00991D38 /* qos_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = qos_private.h; sourceTree = "<group>"; };
 		C99EA612161F8288003EBC56 /* eos.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = eos.xcconfig; sourceTree = "<group>"; };
-		C9A1998A1C8E271F00CE102A /* tests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tests; sourceTree = "<group>"; };
 		C9A1BF5215C9A9F5006BB313 /* pthread_cancelable_cancel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pthread_cancelable_cancel.c; sourceTree = "<group>"; };
 		C9A1BF5415C9CB9D006BB313 /* pthread_cancelable_legacy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pthread_cancelable_legacy.c; sourceTree = "<group>"; };
 		C9A325E215B7347000270056 /* libsystem_pthread.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libsystem_pthread.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -637,7 +636,6 @@
 				C9D70EBE167AC7D100D52713 /* private */,
 				C948FCC015D187AD00180BF5 /* man */,
 				C9A325ED15B74FB600270056 /* src */,
-				C9A1998A1C8E271F00CE102A /* tests */,
 				9240BF331AA669EB003C99B4 /* tools */,
 				C9A3260B15B759A100270056 /* xcodescripts */,
 				C9CA27DA1602813000259F78 /* Frameworks */,
