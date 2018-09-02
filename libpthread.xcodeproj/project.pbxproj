@@ -7,17 +7,6 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		92799B441B96A5FD00861404 /* Tests */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 92799B451B96A5FE00861404 /* Build configuration list for PBXAggregateTarget "Tests" */;
-			buildPhases = (
-			);
-			dependencies = (
-				925383BB1BD01EED00F745DB /* PBXTargetDependency */,
-			);
-			name = Tests;
-			productName = Tests;
-		};
 		C90E7AAC15DC3D3300A06D48 /* All */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = C90E7AAD15DC3D3300A06D48 /* Build configuration list for PBXAggregateTarget "All" */;
@@ -266,13 +255,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 74E594911613AAF4006C417B;
 			remoteInfo = "libpthread.a eOS";
-		};
-		925383BA1BD01EED00F745DB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C9A325D915B7347000270056 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 92B275F01BCE4C5E007D06D7;
-			remoteInfo = darwintests;
 		};
 		C04545BB1C58510F006A53B3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -903,23 +885,6 @@
 		};
 /* End PBXHeadersBuildPhase section */
 
-/* Begin PBXLegacyTarget section */
-		92B275F01BCE4C5E007D06D7 /* darwintests */ = {
-			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION)";
-			buildConfigurationList = 92B275F11BCE4C5E007D06D7 /* Build configuration list for PBXLegacyTarget "darwintests" */;
-			buildPhases = (
-			);
-			buildToolPath = /usr/bin/make;
-			buildWorkingDirectory = tests;
-			dependencies = (
-			);
-			name = darwintests;
-			passBuildSettingsInEnvironment = 1;
-			productName = darwintests;
-		};
-/* End PBXLegacyTarget section */
-
 /* Begin PBXNativeTarget section */
 		6E8C16511B14F08A00C8987C /* libsystem_pthread introspection */ = {
 			isa = PBXNativeTarget;
@@ -1095,14 +1060,6 @@
 			attributes = {
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "";
-				TargetAttributes = {
-					92799B441B96A5FD00861404 = {
-						CreatedOnToolsVersion = 7.0;
-					};
-					92B275F01BCE4C5E007D06D7 = {
-						CreatedOnToolsVersion = 7.1;
-					};
-				};
 			};
 			buildConfigurationList = C9A325DC15B7347000270056 /* Build configuration list for PBXProject "libpthread" */;
 			compatibilityVersion = "Xcode 9.3";
@@ -1119,7 +1076,6 @@
 				C90E7AAC15DC3D3300A06D48 /* All */,
 				C91D01B5162892FF0002E29A /* Kext */,
 				C98832C115DEB44000B3308E /* Embedded */,
-				92799B441B96A5FD00861404 /* Tests */,
 				C9A325E115B7347000270056 /* libsystem_pthread */,
 				E4F449A41E82D03500A7FB9A /* libsystem_pthread noresolver */,
 				6E8C16511B14F08A00C8987C /* libsystem_pthread introspection */,
@@ -1129,7 +1085,6 @@
 				C90E7A9E15DC3C3800A06D48 /* libpthread dyld */,
 				74E594911613AAF4006C417B /* libpthread eOS */,
 				C9CA27D81602813000259F78 /* pthread kext */,
-				92B275F01BCE4C5E007D06D7 /* darwintests */,
 			);
 		};
 /* End PBXProject section */
@@ -1587,11 +1542,6 @@
 			target = 74E594911613AAF4006C417B /* libpthread eOS */;
 			targetProxy = 74E594AA1613AD7F006C417B /* PBXContainerItemProxy */;
 		};
-		925383BB1BD01EED00F745DB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 92B275F01BCE4C5E007D06D7 /* darwintests */;
-			targetProxy = 925383BA1BD01EED00F745DB /* PBXContainerItemProxy */;
-		};
 		C04545BC1C58510F006A53B3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C04545A21C584F4A006A53B3 /* libpthread generic */;
@@ -1716,14 +1666,6 @@
 			};
 			name = Debug;
 		};
-		9235CA4D1CA48CEA0015C92B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				SUPPORTED_PLATFORMS = "macosx iphoneos appletvos watchos";
-			};
-			name = Debug;
-		};
 		9235CA4E1CA48CEA0015C92B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6E8C16851B14F14000C8987C /* pthread_introspection.xcconfig */;
@@ -1778,32 +1720,6 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 			};
 			name = Debug;
-		};
-		9235CA541CA48CEA0015C92B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				SDKROOT = macosx.internal;
-				SUPPORTED_PLATFORMS = "iphoneos macosx watchos appletvos";
-			};
-			name = Debug;
-		};
-		92799B461B96A5FE00861404 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				SUPPORTED_PLATFORMS = "macosx iphoneos appletvos watchos";
-			};
-			name = Release;
-		};
-		92B275F21BCE4C5E007D06D7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				SDKROOT = macosx.internal;
-				SUPPORTED_PLATFORMS = "iphoneos macosx watchos appletvos";
-			};
-			name = Release;
 		};
 		C04545B61C584F4A006A53B3 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1975,24 +1891,6 @@
 			buildConfigurations = (
 				74E594A31613AAF4006C417B /* Release */,
 				9235CA521CA48CEA0015C92B /* Debug */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		92799B451B96A5FE00861404 /* Build configuration list for PBXAggregateTarget "Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				92799B461B96A5FE00861404 /* Release */,
-				9235CA4D1CA48CEA0015C92B /* Debug */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		92B275F11BCE4C5E007D06D7 /* Build configuration list for PBXLegacyTarget "darwintests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				92B275F21BCE4C5E007D06D7 /* Release */,
-				9235CA541CA48CEA0015C92B /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
