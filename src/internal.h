@@ -100,7 +100,7 @@ typedef struct _pthread_attr_t pthread_attr_t;
 #endif
 
 #include "posix_sched.h"
-#include "tsd_private.h"
+#include <pthread/tsd_private.h>
 #include "spinlock_private.h"
 
 #define PTHREAD_EXPORT extern __attribute__((visibility("default")))

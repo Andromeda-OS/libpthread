@@ -55,7 +55,7 @@
 #include "workqueue_private.h"
 #include "introspection_private.h"
 #include "qos_private.h"
-#include "tsd_private.h"
+#include <pthread/tsd_private.h>
 
 #include <stdlib.h>
 #include <errno.h>

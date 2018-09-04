@@ -682,6 +682,7 @@
 				C9A3260015B7513700270056 /* pthread_spis.h */,
 				C9A3260115B7513700270056 /* sched.h */,
 				C98C95D818FF1F4E005654FB /* spawn.h */,
+				C9A325F415B7513200270056 /* tsd_private.h */,
 				C9244C1A185FCFED00075748 /* qos.h */,
 			);
 			path = pthread;
@@ -739,7 +740,6 @@
 				C9153095167ACC22006BB094 /* private.h */,
 				C9A325F015B7513200270056 /* posix_sched.h */,
 				C9A325F715B7513200270056 /* spinlock_private.h */,
-				C9A325F415B7513200270056 /* tsd_private.h */,
 				C9A325F915B7513200270056 /* workqueue_private.h */,
 				E4657D4017284F7B007D1847 /* introspection_private.h */,
 				C99B17DA189C2E1B00991D38 /* qos_private.h */,
