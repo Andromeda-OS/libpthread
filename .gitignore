@@ -2,3 +2,4 @@
 *.xcuserdatad
 *.xccheckout
 /build/
+/darwinbuild.xcconfig

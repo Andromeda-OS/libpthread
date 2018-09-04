@@ -8,8 +8,7 @@ PUBLIC_HEADERS_FOLDER_PATH = /usr/include/pthread
 PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/pthread
 
 SRCROOT_SEARCH_PATHS = $(SRCROOT) $(SRCROOT)/private $(SRCROOT)/os $(SRCROOT)/src/resolver
-SYSTEM_FRAMEWORK_HEADERS = $(SRCROOT)/SDK/Frameworks/System.framework/PrivateHeaders
-HEADER_SEARCH_PATHS = $($(PRODUCT_NAME)_SEARCH_PATHS) $(SRCROOT_SEARCH_PATHS) $(SYSTEM_FRAMEWORK_HEADERS) $(SRCROOT)/SDK/include $(inherited)
+HEADER_SEARCH_PATHS = $($(PRODUCT_NAME)_SEARCH_PATHS) $(SRCROOT_SEARCH_PATHS) $(inherited)
 FRAMEWORK_SEARCH_PATHS = $(SRCROOT)/SDK/Frameworks
 INSTALLHDRS_SCRIPT_PHASE = YES
 ALWAYS_SEARCH_USER_PATHS = YES
@@ -74,3 +73,4 @@ EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*] = *.c *.s
 SKIP_INSTALL[sdk=iphonesimulator*] = YES
 OTHER_LDFLAGS[sdk=iphonesimulator*] =
 
+#include "../darwinbuild.xcconfig"
