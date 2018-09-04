@@ -312,20 +312,6 @@
 			remoteGlobalIDString = C90E7A9E15DC3C3800A06D48;
 			remoteInfo = libpthread.a;
 		};
-		E4F4498A1E825D2B00A7FB9A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C9A325D915B7347000270056 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E41505D01E818BEB00F243FB;
-			remoteInfo = "libpthread mp resolved";
-		};
-		E4F449A11E82C5A400A7FB9A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C9A325D915B7347000270056 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E4F4498C1E82C1F000A7FB9A;
-			remoteInfo = "libpthread alt resolved";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -972,8 +958,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				E4F4498B1E825D2B00A7FB9A /* PBXTargetDependency */,
-				E4F449A21E82C5A400A7FB9A /* PBXTargetDependency */,
 			);
 			name = libsystem_pthread;
 			productName = libsystem_pthread.dylib;
@@ -1581,16 +1565,6 @@
 			isa = PBXTargetDependency;
 			target = C90E7A9E15DC3C3800A06D48 /* libpthread dyld */;
 			targetProxy = C98832C715DEB44B00B3308E /* PBXContainerItemProxy */;
-		};
-		E4F4498B1E825D2B00A7FB9A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E41505D01E818BEB00F243FB /* libpthread mp resolved */;
-			targetProxy = E4F4498A1E825D2B00A7FB9A /* PBXContainerItemProxy */;
-		};
-		E4F449A21E82C5A400A7FB9A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E4F4498C1E82C1F000A7FB9A /* libpthread alt resolved */;
-			targetProxy = E4F449A11E82C5A400A7FB9A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
