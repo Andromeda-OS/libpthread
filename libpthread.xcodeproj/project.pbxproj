@@ -1694,6 +1694,7 @@
 			baseConfigurationReference = 9235CA551CA48D010015C92B /* kext_development.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				SYSTEM_HEADER_SEARCH_PATHS = "$(DEPROOT)/System/Library/Frameworks/Kernel.framework/PrivateHeaders";
 			};
 			name = Debug;
 		};
@@ -1787,6 +1788,7 @@
 			baseConfigurationReference = C91D01BA162893CD0002E29A /* kext.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				SYSTEM_HEADER_SEARCH_PATHS = "$(DEPROOT)/System/Library/Frameworks/Kernel.framework/PrivateHeaders";
 			};
 			name = Release;
 		};
