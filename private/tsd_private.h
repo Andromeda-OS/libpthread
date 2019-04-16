@@ -54,7 +54,7 @@
 #include <TargetConditionals.h>
 #include <Availability.h>
 #include <os/tsd.h>
-#include <pthread/spinlock_private.h>
+#include "spinlock_private.h"
 
 #ifndef __TSD_MACH_THREAD_SELF
 #define __TSD_MACH_THREAD_SELF 3
