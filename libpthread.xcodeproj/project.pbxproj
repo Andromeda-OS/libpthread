@@ -1655,6 +1655,7 @@
 			baseConfigurationReference = E4F449A31E82CF0100A7FB9A /* resolver.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
@@ -1780,6 +1781,7 @@
 			baseConfigurationReference = E4F449A31E82CF0100A7FB9A /* resolver.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
