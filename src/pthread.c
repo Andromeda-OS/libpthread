@@ -1322,70 +1322,10 @@ pthread_create_from_mach_thread(pthread_t *thread, const pthread_attr_t *attr,
 	return _pthread_create(thread, attr, start_routine, arg, flags);
 }
 
-#if !defined(__OPEN_SOURCE__) && TARGET_OS_OSX // 40703288
-/* Functions defined in machine-dependent files. */
-PTHREAD_NOEXPORT void _pthread_setup_suspended(pthread_t th, void (*f)(pthread_t), void *sp);
-
-PTHREAD_NORETURN
-static void
-_pthread_suspended_body(pthread_t self)
-{
-	_pthread_set_self(self);
-	__pthread_started_thread(self);
-	_pthread_exit(self, (self->fun)(self->arg));
-}
-
-static int
-_pthread_create_suspended_np(pthread_t *thread, const pthread_attr_t *attrs,
-		void *(*start_routine)(void *), void *arg)
-{
-	pthread_t t;
-	void *stack;
-	mach_port_t kernel_thread = MACH_PORT_NULL;
-
-	if (attrs == NULL) {
-		attrs = &_pthread_attr_default;
-	} else if (attrs->sig != _PTHREAD_ATTR_SIG) {
-		return EINVAL;
-	}
-
-	t = _pthread_allocate(attrs, &stack);
-	if (t == NULL) {
-		return EAGAIN;
-	}
-
-	if (thread_create(mach_task_self(), &kernel_thread) != KERN_SUCCESS) {
-		_pthread_deallocate(t, false);
-		return EAGAIN;
-	}
-
-	_pthread_set_kernel_thread(t, kernel_thread);
-	(void)pthread_setschedparam_internal(t, kernel_thread,
-			t->tl_policy, &t->tl_param);
-
-	__is_threaded = 1;
-
-	t->arg = arg;
-	t->fun = start_routine;
-	t->cancel_state |= _PTHREAD_CANCEL_INITIALIZED;
-	__pthread_add_thread(t, false);
-
-	// Set up a suspended thread.
-	_pthread_setup_suspended(t, _pthread_suspended_body, stack);
-	*thread = t;
-	return 0;
-}
-#endif // !defined(__OPEN_SOURCE__) && TARGET_OS_OSX
-
 int
 pthread_create_suspended_np(pthread_t *thread, const pthread_attr_t *attr,
 		void *(*start_routine)(void *), void *arg)
 {
-#if !defined(__OPEN_SOURCE__) && TARGET_OS_OSX // 40703288
-	if (_os_xbs_chrooted) {
-		return _pthread_create_suspended_np(thread, attr, start_routine, arg);
-	}
-#endif
 	unsigned int flags = _PTHREAD_CREATE_SUSPENDED;
 	return _pthread_create(thread, attr, start_routine, arg, flags);
 }
