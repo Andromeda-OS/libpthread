@@ -9,7 +9,7 @@ PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/pthread
 
 SRCROOT_SEARCH_PATHS = $(SRCROOT) $(SRCROOT)/private $(SRCROOT)/os $(SRCROOT)/src/resolver
 SYSTEM_FRAMEWORK_HEADERS = $(SDKROOT)/System/Library/Frameworks/System.framework/PrivateHeaders
-HEADER_SEARCH_PATHS = $(DEPROOT)/System/Library/Frameworks/System.framework/PrivateHeaders $($(PRODUCT_NAME)_SEARCH_PATHS) $(SRCROOT_SEARCH_PATHS) $(inherited)
+HEADER_SEARCH_PATHS = $(DEPROOT)/System/Library/Frameworks/System.framework/PrivateHeaders $($(PRODUCT_NAME)_SEARCH_PATHS) $(SRCROOT_SEARCH_PATHS) $(DEPROOT)/usr/include $(DEPROOT)/usr/local/include $(inherited)
 INSTALLHDRS_SCRIPT_PHASE = YES
 ALWAYS_SEARCH_USER_PATHS = YES
 USE_HEADERMAP = NO
@@ -56,6 +56,7 @@ NO_WARNING_CFLAGS = -Wno-pedantic -Wno-bad-function-cast -Wno-c++98-compat-pedan
 
 BASE_PREPROCESSOR_MACROS = __LIBC__ __DARWIN_UNIX03=1 __DARWIN_64_BIT_INO_T=1 __DARWIN_NON_CANCELABLE=1 __DARWIN_VERS_1050=1 _FORTIFY_SOURCE=0 __PTHREAD_BUILDING_PTHREAD__=1 $(SIM_PREPROCESSOR_MACROS) __PTHREAD_EXPOSE_INTERNALS__
 GCC_PREPROCESSOR_DEFINITIONS = $(BASE_PREPROCESSOR_MACROS) $(PLATFORM_PREPROCESSOR_DEFINITIONS)
+PLATFORM_PREPROCESSOR_DEFINITIONS = __cold=
 
 // TODO: Remove -fstack-protector on _debug when it is moved to libplatform
 OTHER_CFLAGS = -fno-stack-protector -fno-builtin $(PLATFORM_CFLAGS) $($(PRODUCT_NAME)_CFLAGS)
@@ -76,3 +77,5 @@ SKIP_INSTALL[sdk=iphonesimulator*] = YES
 OTHER_LDFLAGS[sdk=iphonesimulator*] =
 
 #include "../darwinbuild.xcconfig"
+
+FRAMEWORK_SEARCH_PATHS = $(DEPROOT)/System/Library/Frameworks

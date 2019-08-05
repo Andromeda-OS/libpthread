@@ -69,3 +69,4 @@ GCC_WARN_UNUSED_VARIABLE = YES
 #include "../darwinbuild.xcconfig"
 
 HEADER_SEARCH_PATHS = $(DEPROOT)/System/Library/Frameworks/Kernel.framework/PrivateHeaders $(DEPROOT)/System/Library/Frameworks/Kernel.framework/Headers $(DEPROOT)/System/Library/Frameworks/System.framework/PrivateHeaders $(DEPROOT)/System/Library/Frameworks/System.framework/Headers $(inherited)
+FRAMEWORK_SEARCH_PATHS = $(DEPROOT)/System/Library/Frameworks
