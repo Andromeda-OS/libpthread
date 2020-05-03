@@ -1,6 +1,11 @@
 // pthread kext build options
 #include "../darwinbuild.xcconfig"
 
+HEADER_SEARCH_PATHS = $(DEPROOT)/System/Library/Frameworks/Kernel.framework/PrivateHeaders $(DEPROOT)/System/Library/Frameworks/Kernel.framework/Headers
+SYSTEM_HEADER_SEARCH_PATHS = // nothing, this is a kernel component
+FRAMEWORK_SEARCH_PATHS = // nothing, this is a kernel component
+LIBRARY_SEARCH_PATHS = // nothing, this is a kernel component
+
 SDKROOT = macosx
 SUPPORTED_PLATFORMS = macosx
 BUILD_VARIANTS = normal development kasan
