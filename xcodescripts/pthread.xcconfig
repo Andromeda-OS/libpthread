@@ -1,7 +1,7 @@
-#include "<DEVELOPER_DIR>/Makefiles/CoreOS/Xcode/BSD.xcconfig"
+#include "../darwinbuild.xcconfig"
 
-SDKROOT = macosx.internal
-SUPPORTED_PLATFORMS = macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator
+SDKROOT = macosx
+SUPPORTED_PLATFORMS = macosx
 BUILD_VARIANTS = normal debug
 
 SDK_INSTALL_VARIANT = $(SDK_INSTALL_VARIANT_$(DRIVERKIT))
