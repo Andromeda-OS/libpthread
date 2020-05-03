@@ -30,6 +30,7 @@
 #define _SYS_PTHREAD_INTERNAL_H_
 
 #include <pthread/priority_private.h>
+#include <private/workqueue_private.h>
 
 #ifdef KERNEL
 struct ksyn_waitq_element;
