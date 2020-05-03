@@ -1110,7 +1110,7 @@
 		C9A325D915B7347000270056 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					92799B441B96A5FD00861404 = {
@@ -1123,10 +1123,11 @@
 			};
 			buildConfigurationList = C9A325DC15B7347000270056 /* Build configuration list for PBXProject "libpthread" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = C9A325D715B7347000270056;
 			productRefGroup = C9A325E315B7347000270056 /* Products */;
@@ -1637,6 +1638,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6E8C16851B14F14000C8987C /* pthread_introspection.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 			};
 			name = Release;
 		};
@@ -1644,12 +1646,41 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C99EA612161F8288003EBC56 /* eos.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 			};
 			name = Release;
 		};
 		9235CA491CA48CEA0015C92B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1657,24 +1688,28 @@
 		9235CA4A1CA48CEA0015C92B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 			};
 			name = Debug;
 		};
 		9235CA4B1CA48CEA0015C92B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 			};
 			name = Debug;
 		};
 		9235CA4C1CA48CEA0015C92B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 			};
 			name = Debug;
 		};
 		9235CA4D1CA48CEA0015C92B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				SUPPORTED_PLATFORMS = "macosx iphoneos appletvos watchos";
 			};
 			name = Debug;
@@ -1683,6 +1718,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6E8C16851B14F14000C8987C /* pthread_introspection.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 			};
 			name = Debug;
 		};
@@ -1690,6 +1726,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4F449A31E82CF0100A7FB9A /* resolver.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 			};
 			name = Debug;
 		};
@@ -1697,6 +1734,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C04545B91C584F8B006A53B3 /* static.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 			};
 			name = Debug;
 		};
@@ -1705,6 +1743,7 @@
 			baseConfigurationReference = C04545B91C584F8B006A53B3 /* static.xcconfig */;
 			buildSettings = {
 				BUILD_VARIANTS = normal;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"VARIANT_DYLD=1",
@@ -1718,6 +1757,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C99EA612161F8288003EBC56 /* eos.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 			};
 			name = Debug;
 		};
@@ -1725,12 +1765,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9235CA551CA48D010015C92B /* kext_development.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 			};
 			name = Debug;
 		};
 		9235CA541CA48CEA0015C92B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				SDKROOT = macosx.internal;
 				SUPPORTED_PLATFORMS = "iphoneos macosx watchos appletvos";
 			};
@@ -1739,6 +1781,7 @@
 		92799B461B96A5FE00861404 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				SUPPORTED_PLATFORMS = "macosx iphoneos appletvos watchos";
 			};
 			name = Release;
@@ -1746,6 +1789,7 @@
 		92B275F21BCE4C5E007D06D7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				SDKROOT = macosx.internal;
 				SUPPORTED_PLATFORMS = "iphoneos macosx watchos appletvos";
 			};
@@ -1755,18 +1799,21 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C04545B91C584F8B006A53B3 /* static.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 			};
 			name = Release;
 		};
 		C900AEAB215AF7170011B58C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 			};
 			name = Release;
 		};
 		C900AEAC215AF7170011B58C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 			};
 			name = Debug;
 		};
@@ -1775,6 +1822,7 @@
 			baseConfigurationReference = C04545B91C584F8B006A53B3 /* static.xcconfig */;
 			buildSettings = {
 				BUILD_VARIANTS = normal;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"VARIANT_DYLD=1",
@@ -1787,24 +1835,53 @@
 		C90E7AAE15DC3D3300A06D48 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 			};
 			name = Release;
 		};
 		C91D01B7162892FF0002E29A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 			};
 			name = Release;
 		};
 		C98832C215DEB44000B3308E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 			};
 			name = Release;
 		};
 		C9A325E515B7347000270056 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -1813,6 +1890,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4F449A31E82CF0100A7FB9A /* resolver.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 			};
 			name = Release;
 		};
@@ -1820,6 +1898,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C91D01BA162893CD0002E29A /* kext.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 			};
 			name = Release;
 		};
@@ -1827,6 +1906,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E41505E81E818D4D00F243FB /* resolved.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				RESOLVED_VARIANT = mp;
 			};
 			name = Release;
@@ -1835,6 +1915,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E41505E81E818D4D00F243FB /* resolved.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				RESOLVED_VARIANT = mp;
 			};
 			name = Debug;
@@ -1842,6 +1923,7 @@
 		E4B7FCB022000AF50010A840 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -1849,6 +1931,7 @@
 		E4B7FCB122000AF50010A840 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1857,6 +1940,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E41505E81E818D4D00F243FB /* resolved.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				RESOLVED_VARIANT = armv81;
 			};
 			name = Release;
@@ -1865,6 +1949,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E41505E81E818D4D00F243FB /* resolved.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				RESOLVED_VARIANT = armv81;
 			};
 			name = Debug;
@@ -1873,6 +1958,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C9A3260C15B759B600270056 /* pthread.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				WARNING_CFLAGS = (
 					"-Weverything",
 					"$(inherited)",
@@ -1884,6 +1970,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C9A3260C15B759B600270056 /* pthread.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				WARNING_CFLAGS = (
 					"-Weverything",
