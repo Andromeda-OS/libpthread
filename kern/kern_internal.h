@@ -29,6 +29,8 @@
 #ifndef _SYS_PTHREAD_INTERNAL_H_
 #define _SYS_PTHREAD_INTERNAL_H_
 
+#include <pthread/priority_private.h>
+
 #ifdef KERNEL
 struct ksyn_waitq_element;
 #include <stdatomic.h>

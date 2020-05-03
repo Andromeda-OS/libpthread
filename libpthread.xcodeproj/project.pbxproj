@@ -356,6 +356,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F1A6D34245E6ADF003F9028 /* priority_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = priority_private.h; sourceTree = "<group>"; };
 		1F45A64D245E6A2400A40DAF /* priority_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = priority_private.h; sourceTree = "<group>"; };
 		6E2A3BBD210122230003B53B /* stack_np.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stack_np.h; sourceTree = "<group>"; };
 		6E514A0220B67C0900844EE1 /* offsets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = offsets.h; sourceTree = "<group>"; };
@@ -551,6 +552,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F1A6D33245E6AB6003F9028 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				1F45A64D245E6A2400A40DAF /* priority_private.h */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		9240BF331AA669EB003C99B4 /* tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -660,6 +669,7 @@
 				C9A3260B15B759A100270056 /* xcodescripts */,
 				C9CA27DA1602813000259F78 /* Frameworks */,
 				C9A325E315B7347000270056 /* Products */,
+				1F1A6D33245E6AB6003F9028 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 1;
@@ -706,6 +716,7 @@
 		C9A325FD15B7513700270056 /* pthread */ = {
 			isa = PBXGroup;
 			children = (
+				1F1A6D34245E6ADF003F9028 /* priority_private.h */,
 				9202B2301D1A5B3F00945880 /* introspection.h */,
 				C9A325FE15B7513700270056 /* pthread.h */,
 				C9A325FF15B7513700270056 /* pthread_impl.h */,
