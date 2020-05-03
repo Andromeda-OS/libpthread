@@ -54,13 +54,13 @@ extern void panic(const char *string, ...) __printflike(1,2) __dead2;
 
 #include <sys/param.h>
 #include <sys/queue.h>
-#include <sys/resourcevar.h>
+//#include <sys/resourcevar.h>
 //#include <sys/proc_internal.h>
 #include <sys/kauth.h>
 #include <sys/systm.h>
-#include <sys/timeb.h>
-#include <sys/times.h>
-#include <sys/acct.h>
+//#include <sys/timeb.h>
+//#include <sys/times.h>
+//#include <sys/acct.h>
 #include <sys/kernel.h>
 #include <sys/wait.h>
 #include <sys/signalvar.h>
