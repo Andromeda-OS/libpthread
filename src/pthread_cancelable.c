@@ -158,6 +158,7 @@ _pthread_exit_if_canceled(int error)
 	if (((error & 0xff) == EINTR) && __unix_conforming && (__pthread_canceled(0) == 0)) {
 		pthread_t self = pthread_self();
 
+		_pthread_validate_signature(self);
 		self->cancel_error = error;
 		self->canceled = true;
 		pthread_exit(PTHREAD_CANCELED);
@@ -179,6 +180,7 @@ _pthread_testcancel(int isconforming)
 {
 	pthread_t self = pthread_self();
 	if (_pthread_is_canceled(self)) {
+		_pthread_validate_signature(self);
 		// 4597450: begin
 		self->canceled = (isconforming != PTHREAD_CONFORM_DARWIN_LEGACY);
 		// 4597450: end
@@ -191,8 +193,7 @@ void
 _pthread_markcancel_if_canceled(pthread_t thread, mach_port_t kport)
 {
 	const int flags = (PTHREAD_CANCEL_ENABLE|_PTHREAD_CANCEL_PENDING);
-	int state = os_atomic_or2o(thread, cancel_state,
-			_PTHREAD_CANCEL_INITIALIZED, relaxed);
+	int state = os_atomic_load2o(thread, cancel_state, relaxed);
 	if ((state & flags) == flags && __unix_conforming) {
 		__pthread_markcancel(kport);
 	}
@@ -218,6 +219,8 @@ static inline int
 _pthread_setcancelstate_internal(int state, int *oldstateptr, int conforming)
 {
 	pthread_t self = pthread_self();
+
+	_pthread_validate_signature(self);
 
 	switch (state) {
 	case PTHREAD_CANCEL_ENABLE:
@@ -277,6 +280,7 @@ pthread_setcanceltype(int type, int *oldtype)
 	    (type != PTHREAD_CANCEL_ASYNCHRONOUS))
 		return EINVAL;
 	self = pthread_self();
+	_pthread_validate_signature(self);
 	int oldstate = _pthread_update_cancel_state(self, _PTHREAD_CANCEL_TYPE_MASK, type);
 	if (oldtype) {
 		*oldtype = oldstate & _PTHREAD_CANCEL_TYPE_MASK;
@@ -353,9 +357,7 @@ _pthread_joiner_abort_wait(pthread_t thread, pthread_join_context_t ctx)
 		 * _pthread_joiner_prepost_wake() didn't happen
 		 * allow another thread to join
 		 */
-#if DEBUG
-		PTHREAD_ASSERT(thread->tl_join_ctx == ctx);
-#endif
+		PTHREAD_DEBUG_ASSERT(thread->tl_join_ctx == ctx);
 		thread->tl_join_ctx = NULL;
 		thread->tl_exit_gate = MACH_PORT_NULL;
 		aborted = true;
@@ -422,9 +424,7 @@ _pthread_joiner_wait(pthread_t thread, pthread_join_context_t ctx, int conformin
 	// If pthread_detach() was called, we can't safely dereference the thread,
 	// else, decide who gets to deallocate the thread (see _pthread_terminate).
 	if (!ctx->detached) {
-#if DEBUG
-		PTHREAD_ASSERT(thread->tl_join_ctx == ctx);
-#endif
+		PTHREAD_DEBUG_ASSERT(thread->tl_join_ctx == ctx);
 		thread->tl_join_ctx = NULL;
 		cleanup = thread->tl_joiner_cleans_up;
 	}
@@ -453,6 +453,7 @@ _pthread_join(pthread_t thread, void **value_ptr, int conforming)
 	if (!_pthread_validate_thread_and_list_lock(thread)) {
 		return ESRCH;
 	}
+	_pthread_validate_signature(self);
 
 	if (!thread->tl_joinable || (thread->tl_join_ctx != NULL)) {
 		res = EINVAL;
@@ -461,9 +462,7 @@ _pthread_join(pthread_t thread, void **value_ptr, int conforming)
 		res = EDEADLK;
 	} else if (thread->tl_exit_gate == MACH_PORT_DEAD) {
 		TAILQ_REMOVE(&__pthread_head, thread, tl_plist);
-#if DEBUG
-		PTHREAD_ASSERT(thread->tl_joiner_cleans_up);
-#endif
+		PTHREAD_DEBUG_ASSERT(thread->tl_joiner_cleans_up);
 		thread->tl_joinable = false;
 		if (value_ptr) *value_ptr = _pthread_get_exit_value(thread);
 	} else {

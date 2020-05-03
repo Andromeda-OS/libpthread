@@ -146,6 +146,7 @@ pthread_set_qos_class_np(pthread_t thread, qos_class_t qc, int relpri)
 		 */
 		return EPERM;
 	}
+	_pthread_validate_signature(thread);
 	return pthread_set_qos_class_self_np(qc, relpri);
 }
 
@@ -201,14 +202,15 @@ _pthread_qos_class_encode_workqueue(int queue_priority, unsigned long flags)
 	case WORKQ_LOW_PRIOQUEUE:       qos = THREAD_QOS_UTILITY; break;
 	case WORKQ_BG_PRIOQUEUE:        qos = THREAD_QOS_BACKGROUND; break;
 	default:
-		__pthread_abort();
+		PTHREAD_CLIENT_CRASH(queue_priority, "Invalid priority");
 	}
 	return _pthread_priority_make_from_thread_qos(qos, 0, flags);
 }
 
 #define _PTHREAD_SET_SELF_OUTSIDE_QOS_SKIP \
 		(_PTHREAD_SET_SELF_QOS_FLAG | _PTHREAD_SET_SELF_FIXEDPRIORITY_FLAG | \
-		 _PTHREAD_SET_SELF_TIMESHARE_FLAG)
+		 _PTHREAD_SET_SELF_TIMESHARE_FLAG | \
+		 _PTHREAD_SET_SELF_ALTERNATE_AMX)
 
 int
 _pthread_set_properties_self(_pthread_set_flags_t flags,
@@ -218,7 +220,9 @@ _pthread_set_properties_self(_pthread_set_flags_t flags,
 	_pthread_set_flags_t kflags = flags;
 	int rv = 0;
 
-	if (self->wqoutsideqos && (flags & _PTHREAD_SET_SELF_OUTSIDE_QOS_SKIP)) {
+	_pthread_validate_signature(self);
+
+	if (self->wq_outsideqos && (flags & _PTHREAD_SET_SELF_OUTSIDE_QOS_SKIP)) {
 		// A number of properties cannot be altered if we are a workloop
 		// thread that has outside of QoS properties applied to it.
 		kflags &= ~_PTHREAD_SET_SELF_OUTSIDE_QOS_SKIP;
@@ -255,6 +259,13 @@ pthread_set_timeshare_self(void)
 {
 	return _pthread_set_properties_self(_PTHREAD_SET_SELF_TIMESHARE_FLAG, 0, 0);
 }
+
+int
+pthread_prefer_alternate_amx_self(void)
+{
+	return _pthread_set_properties_self(_PTHREAD_SET_SELF_ALTERNATE_AMX, 0, 0);
+}
+
 
 pthread_override_t
 pthread_override_qos_class_start_np(pthread_t thread,  qos_class_t qc, int relpri)

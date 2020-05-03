@@ -246,7 +246,7 @@ _kwq_use_turnstile(ksyn_wait_queue_t kwq)
 #define KW_UNLOCK_PREPOST_READLOCK 	0x08
 #define KW_UNLOCK_PREPOST_WRLOCK 	0x20
 
-static int ksyn_wq_hash_lookup(user_addr_t uaddr, proc_t p, int flags, ksyn_wait_queue_t *kwq, struct pthhashhead **hashptr, uint64_t *object, uint64_t *offset);
+static int ksyn_wq_hash_lookup(user_addr_t uaddr, proc_t p, int flags, ksyn_wait_queue_t *kwq, struct pthhashhead **hashptr, uint64_t object, uint64_t offset);
 static int ksyn_wqfind(user_addr_t mutex, uint32_t mgen, uint32_t ugen, uint32_t rw_wc, int flags, int wqtype , ksyn_wait_queue_t *wq);
 static void ksyn_wqrelease(ksyn_wait_queue_t mkwq, int qfreenow, int wqtype);
 static int ksyn_findobj(user_addr_t uaddr, uint64_t *objectp, uint64_t *offsetp);
@@ -509,7 +509,7 @@ _kwq_handle_interrupted_wakeup(ksyn_wait_queue_t kwq, kwq_intr_type_t type,
 static void
 pthread_list_lock(void)
 {
-	lck_mtx_lock(pthread_list_mlock);
+	lck_mtx_lock_spin(pthread_list_mlock);
 }
 
 static void
@@ -686,7 +686,6 @@ again:
 		pthread_kern->psynch_wait_update_owner(kwq, kwq->kw_owner,
 				&kwq->kw_turnstile);
 		ksyn_wqunlock(kwq);
-		_kwq_cleanup_old_owner(&old_owner);
 		goto out;
 	}
 
@@ -723,9 +722,8 @@ again:
 		old_owner = _kwq_set_owner(kwq, current_thread(), 0);
 		pthread_kern->psynch_wait_update_owner(kwq, kwq->kw_owner,
 				&kwq->kw_turnstile);
-		
+
 		ksyn_wqunlock(kwq);
-		_kwq_cleanup_old_owner(&old_owner);
 		*retval = updatebits;
 		goto out;
 	}
@@ -769,6 +767,7 @@ again:
 		pthread_kern->thread_deallocate_safe(tid_th);
 		tid_th = THREAD_NULL;
 	}
+	assert(old_owner == THREAD_NULL);
 	error = ksyn_wait(kwq, KSYN_QUEUE_WRITE, mgen, ins_flags, 0, 0,
 			psynch_mtxcontinue, kThreadWaitPThreadMutex);
 	// ksyn_wait drops wait queue lock
@@ -777,6 +776,9 @@ out:
 	ksyn_wqrelease(kwq, 1, (KSYN_WQTYPE_INWAIT | KSYN_WQTYPE_MTX));
 	if (tid_th) {
 		thread_deallocate(tid_th);
+	}
+	if (old_owner) {
+		thread_deallocate(old_owner);
 	}
 	return error;
 }
@@ -1553,23 +1555,17 @@ _pth_proc_hashinit(proc_t p)
 static int
 ksyn_wq_hash_lookup(user_addr_t uaddr, proc_t p, int flags,
 		ksyn_wait_queue_t *out_kwq, struct pthhashhead **out_hashptr,
-		uint64_t *out_object, uint64_t *out_offset)
+		uint64_t object, uint64_t offset)
 {
 	int res = 0;
 	ksyn_wait_queue_t kwq;
-	uint64_t object = 0, offset = 0;
 	struct pthhashhead *hashptr;
 	if ((flags & PTHREAD_PSHARED_FLAGS_MASK) == PTHREAD_PROCESS_SHARED) {
 		hashptr = pth_glob_hashtbl;
-		res = ksyn_findobj(uaddr, &object, &offset);
-		if (res == 0) {
-			LIST_FOREACH(kwq, &hashptr[object & pthhash], kw_hash) {
-				if (kwq->kw_object == object && kwq->kw_offset == offset) {
-					break;
-				}
+		LIST_FOREACH(kwq, &hashptr[object & pthhash], kw_hash) {
+			if (kwq->kw_object == object && kwq->kw_offset == offset) {
+				break;
 			}
-		} else {
-			kwq = NULL;
 		}
 	} else {
 		hashptr = pthread_kern->proc_get_pthhash(p);
@@ -1580,8 +1576,6 @@ ksyn_wq_hash_lookup(user_addr_t uaddr, proc_t p, int flags,
 		}
 	}
 	*out_kwq = kwq;
-	*out_object = object;
-	*out_offset = offset;
 	*out_hashptr = hashptr;
 	return res;
 }
@@ -1692,7 +1686,7 @@ ksyn_wqfind(user_addr_t uaddr, uint32_t mgen, uint32_t ugen, uint32_t sgen,
 	while (res == 0) {
 		pthread_list_lock();
 		res = ksyn_wq_hash_lookup(uaddr, current_proc(), flags, &kwq, &hashptr,
-				&object, &offset);
+				object, offset);
 		if (res != 0) {
 			pthread_list_unlock();
 			break;

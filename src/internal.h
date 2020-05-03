@@ -70,16 +70,19 @@ typedef struct _pthread_attr_t pthread_attr_t;
 #include <mach/mach.h>
 #include <mach/mach_error.h>
 #include <sys/queue.h>
+#include <sys/reason.h>
 #include <pthread/bsdthread_private.h>
 #include <pthread/workqueue_syscalls.h>
 
 #define __OS_EXPOSE_INTERNALS__ 1
 #include <os/internal/internal_shared.h>
 #include <os/once_private.h>
+#include <os/reason_private.h>
 
 #if TARGET_IPHONE_SIMULATOR
 #error Unsupported target
 #endif
+
 
 #define PTHREAD_INTERNAL_CRASH(c, x) do { \
 		_os_set_crash_log_cause_and_message((c), \
@@ -131,6 +134,8 @@ typedef os_unfair_lock _pthread_lock;
 
 extern int __is_threaded;
 extern int __unix_conforming;
+PTHREAD_NOEXPORT
+extern uintptr_t _pthread_ptr_munge_token;
 
 // List of all pthreads in the process.
 TAILQ_HEAD(__pthread_list, _pthread);
@@ -160,7 +165,14 @@ PTHREAD_NOEXPORT extern uint64_t _pthread_debugstart;
 #define _INTERNAL_POSIX_THREAD_KEYS_END 768
 #endif
 
+#if defined(__arm64__)
+/* Pull the pthread_t into the same page as the top of the stack so we dirty one less page.
+ * <rdar://problem/19941744> The _pthread struct at the top of the stack shouldn't be page-aligned
+ */
+#define PTHREAD_T_OFFSET (12*1024)
+#else
 #define PTHREAD_T_OFFSET 0
+#endif
 
 #define MAXTHREADNAMESIZE	64
 #define _PTHREAD_T
@@ -168,7 +180,7 @@ typedef struct _pthread {
 	//
 	// ABI - These fields are externally known as struct _opaque_pthread_t.
 	//
-	long sig; // _PTHREAD_SIG
+	long sig;
 	struct __darwin_pthread_handler_rec *__cleanup_stack;
 
 	//
@@ -192,6 +204,7 @@ typedef struct _pthread {
 	// MACH_PORT_DEAD if the thread exited
 	uint32_t tl_exit_gate;
 	struct sched_param tl_param;
+	void *__unused_padding;
 
 	//
 	// Fields protected by pthread_t::lock
@@ -204,18 +217,16 @@ typedef struct _pthread {
 			schedset:1,
 			wqthread:1,
 			wqkillset:1,
-			wqoutsideqos:1,
-			__flags_pad:3;
+			__flags_pad:4;
 
 	char pthread_name[MAXTHREADNAMESIZE];	// includes NUL [aligned]
 
 	void *(*fun)(void *);	// thread start routine
-	void *wq_kqid_ptr;		// wqthreads (workloop)
 	void *arg;				// thread start routine argument
 	int   wq_nevents;		// wqthreads (workloop / kevent)
-	uint16_t wq_retop;		// wqthreads
-	uint8_t cancel_state;	// whether the thread can be canceled [atomic]
+	bool  wq_outsideqos;
 	uint8_t canceled;		// 4597450 set if conformant cancelation happened
+	uint16_t cancel_state;	// whether the thread can be canceled [atomic]
 	errno_t cancel_error;
 	errno_t err_no;			// thread-local errno
 
@@ -408,10 +419,17 @@ _Static_assert(sizeof(_pthread_rwlock) == sizeof(pthread_rwlock_t),
 		"Incorrect _pthread_rwlock structure size");
 
 // Internal references to pthread_self() use TSD slot 0 directly.
-inline static pthread_t __attribute__((__pure__))
+__header_always_inline __pure2 pthread_t
 _pthread_self_direct(void)
 {
-	return _pthread_getspecific_direct(_PTHREAD_TSD_SLOT_PTHREAD_SELF);
+#if TARGET_OS_SIMULATOR || defined(__i386__) || defined(__x86_64__)
+	return (pthread_t)_pthread_getspecific_direct(_PTHREAD_TSD_SLOT_PTHREAD_SELF);
+#elif defined(__arm__) || defined(__arm64__)
+	uintptr_t tsd_base = (uintptr_t)_os_tsd_get_base();
+	return (pthread_t)(tsd_base - offsetof(struct _pthread, tsd));
+#else
+#error unsupported architecture
+#endif
 }
 #define pthread_self() _pthread_self_direct()
 
@@ -467,7 +485,6 @@ _pthread_selfid_direct(void)
 #define _PTHREAD_CANCEL_STATE_MASK   0x01
 #define _PTHREAD_CANCEL_TYPE_MASK    0x02
 #define _PTHREAD_CANCEL_PENDING	     0x10  /* pthread_cancel() has been called for this thread */
-#define _PTHREAD_CANCEL_INITIALIZED  0x20  /* the thread in the list is properly initialized */
 
 extern boolean_t swtch_pri(int);
 
@@ -510,14 +527,6 @@ PTHREAD_NOEXPORT
 void
 _pthread_deallocate(pthread_t t, bool from_mach_thread);
 
-PTHREAD_NORETURN PTHREAD_NOEXPORT
-void
-__pthread_abort(void);
-
-PTHREAD_NORETURN PTHREAD_NOEXPORT
-void
-__pthread_abort_reason(const char *fmt, ...) __printflike(1,2);
-
 PTHREAD_NOEXPORT
 thread_qos_t
 _pthread_qos_class_to_thread_qos(qos_class_t qos);
@@ -538,13 +547,17 @@ PTHREAD_EXPORT
 void
 _pthread_start(pthread_t self, mach_port_t kport, void *(*fun)(void *), void * funarg, size_t stacksize, unsigned int flags);
 
-PTHREAD_NORETURN PTHREAD_EXPORT
+PTHREAD_EXPORT
 void
 _pthread_wqthread(pthread_t self, mach_port_t kport, void *stackaddr, void *keventlist, int flags, int nkevents);
 
 PTHREAD_NOEXPORT
 void
 _pthread_main_thread_init(pthread_t p);
+
+PTHREAD_NOEXPORT
+void
+_pthread_main_thread_postfork_init(pthread_t p);
 
 PTHREAD_NOEXPORT
 void
@@ -592,11 +605,16 @@ _pthread_set_kernel_thread(pthread_t t, mach_port_t p)
 	t->tsd[_PTHREAD_TSD_SLOT_MACH_THREAD_SELF] = p;
 }
 
-#define PTHREAD_ABORT(f,...) __pthread_abort_reason( \
-		"%s:%s:%u: " f, __FILE__, __func__, __LINE__, ## __VA_ARGS__)
-
-#define PTHREAD_ASSERT(b) \
-		do { if (!(b)) PTHREAD_ABORT("failed assertion `%s'", #b); } while (0)
+#ifdef DEBUG
+#define PTHREAD_DEBUG_ASSERT(b) \
+		do { \
+			if (os_unlikely(!(b))) { \
+				PTHREAD_INTERNAL_CRASH(0, "Assertion failed: " #b); \
+			} \
+		} while (0)
+#else
+#define PTHREAD_DEBUG_ASSERT(b) ((void)0)
+#endif
 
 #include <os/semaphore_private.h>
 #include <os/alloc_once_private.h>
@@ -674,6 +692,33 @@ _pthread_rwlock_check_signature_init(_pthread_rwlock *rwlock)
 	return (rwlock->sig == _PTHREAD_RWLOCK_SIG_init);
 }
 
+PTHREAD_ALWAYS_INLINE
+static inline void
+_pthread_validate_signature(pthread_t thread)
+{
+	pthread_t th  = (pthread_t)(thread->sig ^ _pthread_ptr_munge_token);
+#if __has_feature(ptrauth_calls)
+	th = ptrauth_auth_data(th, ptrauth_key_process_dependent_data,
+			ptrauth_string_discriminator("pthread.signature"));
+#endif
+	if (os_unlikely(th != thread)) {
+		/* OS_REASON_LIBSYSTEM_CODE_PTHREAD_CORRUPTION == 4 */
+		abort_with_reason(OS_REASON_LIBSYSTEM, 4, "pthread_t was corrupted", 0);
+	}
+}
+
+PTHREAD_ALWAYS_INLINE
+static inline void
+_pthread_init_signature(pthread_t thread)
+{
+	pthread_t th = thread;
+#if __has_feature(ptrauth_calls)
+	th = ptrauth_sign_unauthenticated(th, ptrauth_key_process_dependent_data,
+			ptrauth_string_discriminator("pthread.signature"));
+#endif
+	thread->sig = (uintptr_t)th ^ _pthread_ptr_munge_token;
+}
+
 /*
  * ALWAYS called without list lock and return with list lock held on success
  *
@@ -686,21 +731,11 @@ _pthread_validate_thread_and_list_lock(pthread_t thread)
 {
 	pthread_t p;
 	if (thread == NULL) return false;
-loop:
 	_PTHREAD_LOCK(_pthread_list_lock);
 	TAILQ_FOREACH(p, &__pthread_head, tl_plist) {
 		if (p != thread) continue;
-		int state = os_atomic_load(&p->cancel_state, relaxed);
-		if (os_likely(state & _PTHREAD_CANCEL_INITIALIZED)) {
-			if (os_unlikely(p->sig != _PTHREAD_SIG)) {
-				PTHREAD_CLIENT_CRASH(0, "pthread_t was corrupted");
-			}
-			return true;
-		}
-		_PTHREAD_UNLOCK(_pthread_list_lock);
-		thread_switch(_pthread_kernel_thread(p),
-					  SWITCH_OPTION_OSLOCK_DEPRESS, 1);
-		goto loop;
+		_pthread_validate_signature(p);
+		return true;
 	}
 	_PTHREAD_UNLOCK(_pthread_list_lock);
 
@@ -715,6 +750,7 @@ _pthread_is_valid(pthread_t thread, mach_port_t *portp)
 	bool valid;
 
 	if (thread == pthread_self()) {
+		_pthread_validate_signature(thread);
 		valid = true;
 		kport = _pthread_kernel_thread(thread);
 	} else if (!_pthread_validate_thread_and_list_lock(thread)) {

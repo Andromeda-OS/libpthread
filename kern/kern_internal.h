@@ -29,7 +29,7 @@
 #ifndef _SYS_PTHREAD_INTERNAL_H_
 #define _SYS_PTHREAD_INTERNAL_H_
 
-//#include <pthread/bsdthread_private.h>
+#include <pthread/bsdthread_private.h>
 #include <pthread/priority_private.h>
 #include <pthread/workqueue_syscalls.h>
 
