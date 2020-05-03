@@ -1,15 +1,13 @@
 // pthread kext build options
+#include "../darwinbuild.xcconfig"
 
-SDKROOT = macosx.internal
-SUPPORTED_PLATFORMS = macosx iphoneos appletvos watchos
+SDKROOT = macosx
+SUPPORTED_PLATFORMS = macosx
 BUILD_VARIANTS = normal development kasan
 
 PTHREAD_VARIANT_ = $(CURRENT_VARIANT)
 PTHREAD_VARIANT_YES = development
 PTHREAD_VARIANT = $(PTHREAD_VARIANT_$(DEBUG))
-
-VALID_ARCHS[sdk=macosx*] = $(NATIVE_ARCH_ACTUAL)
-ARCHS = $(ARCHS_STANDARD_32_64_BIT)
 
 INSTALL_PATH = $(SYSTEM_LIBRARY_DIR)/Extensions
 PRODUCT_NAME = pthread
