@@ -255,6 +255,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1F279C392463B43200639674 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9A325D915B7347000270056 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C90E7A9E15DC3C3800A06D48;
+			remoteInfo = "libpthread dyld";
+		};
 		74E594AA1613AD7F006C417B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C9A325D915B7347000270056 /* Project object */;
@@ -1038,6 +1045,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				1F279C3A2463B43200639674 /* PBXTargetDependency */,
 				E4F4498B1E825D2B00A7FB9A /* PBXTargetDependency */,
 				E4F449A21E82C5A400A7FB9A /* PBXTargetDependency */,
 			);
@@ -1575,6 +1583,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		1F279C3A2463B43200639674 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C90E7A9E15DC3C3800A06D48 /* libpthread dyld */;
+			targetProxy = 1F279C392463B43200639674 /* PBXContainerItemProxy */;
+		};
 		74E594AB1613AD7F006C417B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 74E594911613AAF4006C417B /* libpthread eOS */;
