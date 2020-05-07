@@ -81,7 +81,7 @@ DYLIB_CURRENT_VERSION = $(RC_ProjectSourceVersion)
 DYLIB_COMPATIBILITY_VERSION = 1
 DIRTY_LDFLAGS = -Wl,-dirty_data_list,$(SRCROOT)/xcodescripts/pthread.dirty
 DIRTY_LDFLAGS[sdk=macos*] =
-DYLIB_LDFLAGS = -Wl,-alias_list,$(SRCROOT)/xcodescripts/pthread.aliases -Wl,-umbrella,System -L$(SDK_INSTALL_ROOT)/usr/lib/system -lsystem_kernel -lsystem_platform -ldyld -lcompiler_rt
+DYLIB_LDFLAGS = -Wl,-alias_list,$(SRCROOT)/xcodescripts/pthread.aliases -Wl,-umbrella,System -L$(SDK_INSTALL_ROOT)/usr/lib/system -lsystem_kernel -lsystem_platform -ldyld -lcompiler_rt -lsystem_m
 OTHER_LDFLAGS = $(DYLIB_LDFLAGS) $(DIRTY_LDFLAGS) $(CR_LDFLAGS) $(PLATFORM_LDFLAGS) $(SIMULATOR_LDFLAGS)
 
 SIMULATOR_LDFLAGS =
