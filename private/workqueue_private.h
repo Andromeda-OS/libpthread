@@ -72,7 +72,6 @@ typedef void (*pthread_workqueue_function2_t)(pthread_priority_t priority);
 // Newer callback prototype, used in conjection with function2 when there are kevents to deliver
 // both parameters are in/out parameters
 #define WORKQ_KEVENT_EVENT_BUFFER_LEN 16
-#define WQ_KEVENT_LIST_LEN WORKQ_KEVENT_EVENT_BUFFER_LEN
 typedef void (*pthread_workqueue_function_kevent_t)(void **events, int *nevents);
 
 typedef void (*pthread_workqueue_function_workloop_t)(uint64_t *workloop_id, void **events, int *nevents);
@@ -89,11 +88,6 @@ struct pthread_workqueue_config {
 	uint64_t queue_serialno_offs;
 	uint64_t queue_label_offs;
 };
-
-#define WQ_KEVENT_DATA_SIZE				(32 << 10)
-#define WQ_SETUP_FIRST_USE				0x1
-#define WQ_FLAG_THREAD_TSD_BASE_SET		0x1
-#define WQ_FLAG_THREAD_KEVENT			0x2
 
 __API_AVAILABLE(macos(10.15), ios(13.0))
 int
