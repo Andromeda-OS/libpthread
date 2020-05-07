@@ -2,8 +2,6 @@
 #define _POSIX_PTHREAD_PRIORITY_PRIVATE_H
 
 #include <stdint.h>
-#include <math.h>
-#include "pthread.h"
 
 typedef uint64_t pthread_priority_t;
 #define _PTHREAD_PRIORITY_FLAGS_MASK		0xFFFF000000000000
@@ -22,7 +20,7 @@ static inline thread_qos_t _pthread_priority_thread_qos(pthread_priority_t prior
 }
 
 static inline integer_t _pthread_priority_relpri(pthread_priority_t priority) {
-	return (qos_class_t)(priority & 0xFF);
+	return (integer_t)(priority & 0xFF);
 }
 
 static inline pthread_priority_t _pthread_priority_make_from_thread_qos(thread_qos_t qos, integer_t priority, unsigned long flags) {
@@ -37,7 +35,7 @@ static inline pthread_priority_t _pthread_priority_make_from_thread_qos(thread_q
 }
 
 static inline pthread_priority_t _pthread_unspecified_priority(void) {
-	return _pthread_priority_make_from_thread_qos(QOS_CLASS_UNSPECIFIED, 0, 0);
+	return _pthread_priority_make_from_thread_qos(0, 0, 0);
 }
 
 static inline pthread_priority_t _pthread_default_priority(int unknown __unused) {
