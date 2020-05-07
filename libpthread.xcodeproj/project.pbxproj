@@ -82,7 +82,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		1F45A64F245E6A2A00A40DAF /* priority_private.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F45A64D245E6A2400A40DAF /* priority_private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		6E2A3BBE2101222F0003B53B /* stack_np.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E2A3BBD210122230003B53B /* stack_np.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6E2A3BBF210122300003B53B /* stack_np.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E2A3BBD210122230003B53B /* stack_np.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6E2A3BC0210122340003B53B /* stack_np.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E2A3BBD210122230003B53B /* stack_np.h */; };
@@ -364,7 +363,6 @@
 
 /* Begin PBXFileReference section */
 		1F1A6D34245E6ADF003F9028 /* priority_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = priority_private.h; sourceTree = "<group>"; };
-		1F45A64D245E6A2400A40DAF /* priority_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = priority_private.h; sourceTree = "<group>"; };
 		6E2A3BBD210122230003B53B /* stack_np.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stack_np.h; sourceTree = "<group>"; };
 		6E514A0220B67C0900844EE1 /* offsets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = offsets.h; sourceTree = "<group>"; };
 		6E5869C620C8FE8300F1CB75 /* dependency_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dependency_private.h; sourceTree = "<group>"; };
@@ -559,14 +557,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1F1A6D33245E6AB6003F9028 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				1F45A64D245E6A2400A40DAF /* priority_private.h */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		9240BF331AA669EB003C99B4 /* tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -676,7 +666,6 @@
 				C9A3260B15B759A100270056 /* xcodescripts */,
 				C9CA27DA1602813000259F78 /* Frameworks */,
 				C9A325E315B7347000270056 /* Products */,
-				1F1A6D33245E6AB6003F9028 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 1;
@@ -905,7 +894,6 @@
 				C9BB478B15E6ABD900F135B7 /* workqueue_private.h in Headers */,
 				6E5869C720C9040A00F1CB75 /* dependency_private.h in Headers */,
 				C9153096167ACC2B006BB094 /* private.h in Headers */,
-				1F45A64F245E6A2A00A40DAF /* priority_private.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
