@@ -849,6 +849,12 @@ workq_set_register_state(proc_t p, thread_t th,
 #endif
 }
 
+#define WQ_KEVENT_LIST_LEN		WORKQ_KEVENT_EVENT_BUFFER_LEN
+#define WQ_KEVENT_DATA_SIZE		(32 << 10)
+#define WQ_SETUP_FIRST_USE		0x1
+#define WQ_FLAG_THREAD_TSD_BASE_SET 0x1
+#define WQ_FLAG_THREAD_KEVENT		0x2
+
 static inline int
 workq_kevent(proc_t p, struct workq_thread_addrs *th_addrs,
 		user_addr_t eventlist, int nevents, int kevent_flags,
