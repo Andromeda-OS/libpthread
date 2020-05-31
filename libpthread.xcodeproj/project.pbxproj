@@ -82,6 +82,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		1FA2218C2483423A0006A7AB /* pthread_asm.s in Sources */ = {isa = PBXBuildFile; fileRef = C99AD87D15DF04D10009A6F8 /* pthread_asm.s */; };
 		6E2A3BBE2101222F0003B53B /* stack_np.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E2A3BBD210122230003B53B /* stack_np.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6E2A3BBF210122300003B53B /* stack_np.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E2A3BBD210122230003B53B /* stack_np.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6E2A3BC0210122340003B53B /* stack_np.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E2A3BBD210122230003B53B /* stack_np.h */; };
@@ -1456,6 +1457,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FA2218C2483423A0006A7AB /* pthread_asm.s in Sources */,
 				6EB232CE1B0EB31B005915CE /* resolver.c in Sources */,
 				C9244C1E1860D96D00075748 /* qos.c in Sources */,
 				C90E7AA415DC3C9D00A06D48 /* pthread.c in Sources */,

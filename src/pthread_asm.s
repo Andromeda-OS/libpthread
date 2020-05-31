@@ -27,8 +27,6 @@
 
 #include <mach/i386/syscall_sw.h>
 
-#ifndef VARIANT_DYLD
-
 	.align 2, 0x90
 	.globl _start_wqthread
 _start_wqthread:
@@ -104,13 +102,9 @@ Lend:
 	popq   %rcx
 	retq
 
-#endif
-
 #elif defined(__i386__)
 
 #include <mach/i386/syscall_sw.h>
-
-#ifndef VARIANT_DYLD
 
 	.align 2, 0x90
 	.globl _start_wqthread
@@ -204,8 +198,6 @@ Lend:
 	popl   %edx
 	popl   %ecx
 	retl
-
-#endif
 
 #elif defined(__arm__)
 
